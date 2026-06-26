@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Project | Brett Bowley</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@300;400;600;700;800&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ─── PROJECT PAGE ADDITIONS ──────────────────────── */
+
+    /* Hero banner */
+    .proj-hero {
+      position: relative;
+      z-index: 1;
+      min-height: 70vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .proj-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .proj-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(5,5,8,0.3) 0%,
+        rgba(5,5,8,0.2) 40%,
+        rgba(5,5,8,0.85) 80%,
+        var(--bg) 100%
+      );
+    }
+
+    .proj-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 3rem 5% 3.5rem;
+      width: 100%;
+    }
+
+    .proj-breadcrumb {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text3);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .proj-breadcrumb a {
+      color: var(--text3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .proj-breadcrumb a:hover { color: var(--accent3); }
+    .proj-breadcrumb span { color: var(--text3); }
+
+    .proj-hero-content h1 {
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .proj-hero-content h1 .name {
+      background: linear-gradient(135deg, #fff 30%, var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .proj-hero-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .proj-badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      border: 1px solid;
+    }
+
+    .proj-badge.released {
+      color: var(--green);
+      border-color: rgba(74,222,128,0.35);
+      background: rgba(74,222,128,0.08);
+    }
+
+    .proj-badge.wip {
+      color: var(--cyan);
+      border-color: rgba(34,211,238,0.35);
+      background: rgba(34,211,238,0.08);
+    }
+
+    .proj-badge.jam {
+      color: var(--accent3);
+      border-color: var(--border);
+      background: rgba(26,86,219,0.1);
+    }
+
+    /* Body layout */
+    .proj-body {
+      position: relative;
+      z-index: 1;
+      padding: 3rem 5% 5rem;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    /* ─── Main content column ─── */
+    .proj-main {}
+
+    .proj-section-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent3);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .proj-section-label::before {
+      content: '//';
+      color: var(--text3);
+    }
+
+    .proj-desc {
+      color: var(--text2);
+      font-size: 1rem;
+      line-height: 1.9;
+      margin-bottom: 1.1rem;
+    }
+
+    .proj-desc-block {
+      margin-bottom: 2.5rem;
+    }
+
+    /* Screenshots / media */
+    .proj-media {
+      margin-bottom: 2.5rem;
+    }
+
+    .proj-screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .proj-screenshots img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border2);
+      object-fit: cover;
+      aspect-ratio: 16/9;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: zoom-in;
+      background: var(--bg3);
+    }
+
+    .proj-screenshots img:hover {
+      border-color: var(--accent);
+      transform: scale(1.02);
+    }
+
+    /* Video thumbnail in media grid */
+    .proj-media-thumb {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border2);
+      background: var(--bg3);
+      aspect-ratio: 16/9;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .proj-media-thumb:hover {
+      border-color: var(--accent);
+      transform: scale(1.02);
+    }
+
+    .proj-media-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .proj-media-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(5,5,8,0.3);
+      transition: background 0.2s;
+      pointer-events: none;
+    }
+
+    .proj-media-thumb:hover::after {
+      background: rgba(5,5,8,0.15);
+    }
+
+    .proj-play-btn {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .proj-play-circle {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(5,5,8,0.75);
+      border: 2px solid rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s, border-color 0.2s;
+      backdrop-filter: blur(4px);
+    }
+
+    .proj-media-thumb:hover .proj-play-circle {
+      background: var(--accent);
+      border-color: var(--accent2);
+      transform: scale(1.1);
+    }
+
+    .proj-play-circle svg {
+      margin-left: 3px;
+    }
+
+    /* Credits */
+    .proj-credits-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .credit-card {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      padding: 0.85rem 1.2rem;
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .credit-role {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--accent3);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+
+    .credit-name {
+      font-family: 'Oxanium', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ─── Sidebar ─── */
+    .proj-sidebar {
+      position: sticky;
+      top: 80px;
+    }
+
+    .proj-cover-img {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: var(--glow2);
+      display: block;
+      margin-bottom: 1.5rem;
+      object-fit: cover;
+    }
+
+    .proj-download-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      font-family: 'Oxanium', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.95rem 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      box-shadow: 0 4px 24px rgba(26,86,219,0.45);
+      margin-bottom: 1.25rem;
+    }
+
+    .proj-download-btn:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(26,86,219,0.55);
+    }
+
+    .proj-itch-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem;
+      padding: 0.7rem 1.5rem;
+      background: transparent;
+      color: var(--text2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      margin-bottom: 1.5rem;
+    }
+
+    .proj-itch-btn:hover {
+      border-color: var(--accent2);
+      color: var(--accent3);
+      background: rgba(26,86,219,0.08);
+    }
+
+    /* Info table */
+    .proj-info-table {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .proj-info-row {
+      display: flex;
+      align-items: flex-start;
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--border2);
+      gap: 1rem;
+    }
+
+    .proj-info-row:last-child { border-bottom: none; }
+
+    .proj-info-key {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      min-width: 80px;
+      padding-top: 0.05rem;
+    }
+
+    .proj-info-val {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Tags */
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(5,5,8,0.92);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer; /* clicking backdrop closes */
+    }
+
+    .lightbox.open { display: flex; }
+
+    /* Inner content — clicks here do NOT bubble to backdrop close */
+    .lightbox-inner {
+      position: relative;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+      max-width: 90vw;
+    }
+
+    .lightbox-close {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text2);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .lightbox-close:hover {
+      color: var(--accent3);
+      border-color: var(--accent);
+    }
+
+    .lightbox-inner img {
+      max-width: 90vw;
+      max-height: 82vh;
+      border-radius: 8px;
+      box-shadow: 0 0 80px rgba(26,86,219,0.35);
+      display: block;
+    }
+
+    /* Video container in lightbox */
+    .lightbox-video {
+      width: min(90vw, 1100px);
+      aspect-ratio: 16/9;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 80px rgba(26,86,219,0.35);
+    }
+
+    .lightbox-video iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* Back link at top */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text3);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      padding-top: 80px;
+      padding-left: 5%;
+      padding-bottom: 0;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link:hover { color: var(--accent3); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .proj-body {
+        grid-template-columns: 1fr;
+      }
+      .proj-sidebar {
+        position: static;
+        order: -1;
+      }
+      .proj-cover-img { max-height: 280px; }
+    }
+
+    @media (max-width: 600px) {
+      .proj-hero { min-height: 55vh; }
+      .proj-screenshots { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═════════════════════════════════════════ -->
+<nav>
+  <a href="index.html" class="nav-logo">Brett Bowley<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="#" class="resume-btn">Resume</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═════════════════════════════════════════ -->
+<section class="proj-hero" id="proj-hero">
+  <img class="proj-hero-img" id="proj-hero-img" src="" alt="" />
+  <div class="proj-hero-overlay"></div>
+  <div class="proj-hero-content">
+    <div class="proj-breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="index.html#projects">Projects</a>
+      <span>/</span>
+      <span id="proj-breadcrumb-title"></span>
+    </div>
+    <div class="hero-eyebrow" id="proj-eyebrow"></div>
+    <h1><span class="name" id="proj-title"></span></h1>
+    <div class="proj-hero-meta" id="proj-badges"></div>
+  </div>
+</section>
+
+<!-- ═══ BODY ══════════════════════════════════════════ -->
+<div class="proj-body">
+
+  <!-- Main column -->
+  <main class="proj-main">
+
+    <!-- Description -->
+    <div class="proj-desc-block fade-in">
+      <div class="proj-section-label">About the Game</div>
+      <div id="proj-description"></div>
+    </div>
+
+    <!-- Screenshots -->
+    <div class="proj-media fade-in" id="proj-media-section">
+      <div class="proj-section-label">Media</div>
+      <div class="proj-screenshots" id="proj-screenshots"></div>
+    </div>
+
+    <!-- Credits -->
+    <div class="fade-in" id="proj-credits-section">
+      <div class="proj-section-label">Team</div>
+      <div class="proj-credits-grid" id="proj-credits"></div>
+    </div>
+
+  </main>
+
+  <!-- Sidebar -->
+  <aside class="proj-sidebar">
+    <img class="proj-cover-img fade-in" id="proj-cover" src="" alt="" />
+
+    <a id="proj-download-btn" href="#" target="_blank" rel="noopener" class="proj-download-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Free
+    </a>
+
+    <a id="proj-itch-btn" href="#" target="_blank" rel="noopener" class="proj-itch-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 6.668v1.002c0 1.255.672 2.36 1.69 3.025v8.972c0 .666 1.285 1.333 3.21 1.333h14.2c1.925 0 3.21-.667 3.21-1.333V10.695c1.018-.665 1.69-1.77 1.69-3.025V6.668c-.02-2.34-2.08-4.707-3.13-5.33C19.88.718 14.353 0 12 0 9.648 0 4.12.718 3.13 1.338zM12 2c2.443 0 7.82.714 8.79 1.272.83.477 2.195 2.255 2.21 3.395V7.67c0 .944-.854 1.63-1.69 1.63H2.69C1.854 9.3 1 8.614 1 7.67V6.667c.015-1.14 1.38-2.918 2.21-3.395C4.18 2.714 9.557 2 12 2zm7 8c.172 0 .343-.015.51-.04v8.707c-.287.117-.93.333-1.81.333H6.3c-.88 0-1.523-.216-1.81-.333V9.96c.167.025.338.04.51.04h14zM9 12v2h6v-2H9z"/></svg>
+      View on itch.io
+    </a>
+
+    <div class="proj-info-table" id="proj-info-table"></div>
+
+    <div id="proj-tags-wrap">
+      <div class="proj-section-label" style="margin-bottom:0.75rem">Tags</div>
+      <div class="proj-tags" id="proj-tags"></div>
+    </div>
+  </aside>
+
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <span class="footer-logo">Brett Bowley</span>
+  <span class="footer-copy">© 2026 Brett Bowley. All rights reserved.</span>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner" id="lightbox-inner">
+    <button class="lightbox-close" id="lightbox-close">&#x2715; Close</button>
+    <img id="lightbox-img" src="" alt="" style="display:none" />
+    <div class="lightbox-video" id="lightbox-video" style="display:none">
+      <iframe id="lightbox-iframe" src="" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script src="project.js"></script>
+<script>
+  // Fade-in observer (mirrors main site)
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
