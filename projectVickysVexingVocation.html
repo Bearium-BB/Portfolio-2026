@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Project | Brett Bowley</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@300;400;600;700;800&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="project.css">
+  <script src="vickysVexingVocation.js"></script>
+</head>
+<body>
+
+<!-- ═══ NAV ═════════════════════════════════════════ -->
+<nav>
+  <a href="index.html" class="nav-logo">Brett Bowley<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#projects">Projects</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="#" class="resume-btn">Resume</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═════════════════════════════════════════ -->
+<section class="proj-hero" id="proj-hero">
+  <img class="proj-hero-img" id="proj-hero-img" src="" alt="" />
+  <div class="proj-hero-overlay"></div>
+  <div class="proj-hero-content">
+    <div class="proj-breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="index.html#projects">Projects</a>
+      <span>/</span>
+      <span id="proj-breadcrumb-title"></span>
+    </div>
+    <div class="hero-eyebrow" id="proj-eyebrow"></div>
+    <h1><span class="name" id="proj-title"></span></h1>
+    <div class="proj-hero-meta" id="proj-badges"></div>
+  </div>
+</section>
+
+<!-- ═══ BODY ══════════════════════════════════════════ -->
+<div class="proj-body">
+
+  <!-- Main column -->
+  <main class="proj-main">
+
+    <!-- Description -->
+    <div class="proj-desc-block fade-in">
+      <div class="proj-section-label">About the Game</div>
+      <div id="proj-description"></div>
+    </div>
+
+    <!-- Screenshots -->
+    <div class="proj-media fade-in" id="proj-media-section">
+      <div class="proj-section-label">Media</div>
+      <div class="proj-screenshots" id="proj-screenshots"></div>
+    </div>
+
+    <!-- Credits -->
+    <div class="fade-in" id="proj-credits-section">
+      <div class="proj-section-label">Team</div>
+      <div class="proj-credits-grid" id="proj-credits"></div>
+    </div>
+
+  </main>
+
+  <!-- Sidebar -->
+  <aside class="proj-sidebar">
+    <img class="proj-cover-img fade-in" id="proj-cover" src="" alt="" />
+
+    <a id="proj-download-btn" href="#" target="_blank" rel="noopener" class="proj-download-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Free
+    </a>
+
+    <a id="proj-itch-btn" href="#" target="_blank" rel="noopener" class="proj-itch-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 6.668v1.002c0 1.255.672 2.36 1.69 3.025v8.972c0 .666 1.285 1.333 3.21 1.333h14.2c1.925 0 3.21-.667 3.21-1.333V10.695c1.018-.665 1.69-1.77 1.69-3.025V6.668c-.02-2.34-2.08-4.707-3.13-5.33C19.88.718 14.353 0 12 0 9.648 0 4.12.718 3.13 1.338zM12 2c2.443 0 7.82.714 8.79 1.272.83.477 2.195 2.255 2.21 3.395V7.67c0 .944-.854 1.63-1.69 1.63H2.69C1.854 9.3 1 8.614 1 7.67V6.667c.015-1.14 1.38-2.918 2.21-3.395C4.18 2.714 9.557 2 12 2zm7 8c.172 0 .343-.015.51-.04v8.707c-.287.117-.93.333-1.81.333H6.3c-.88 0-1.523-.216-1.81-.333V9.96c.167.025.338.04.51.04h14zM9 12v2h6v-2H9z"/></svg>
+      View on itch.io
+    </a>
+
+    <div class="proj-info-table" id="proj-info-table"></div>
+
+    <div id="proj-tags-wrap">
+      <div class="proj-section-label" style="margin-bottom:0.75rem">Tags</div>
+      <div class="proj-tags" id="proj-tags"></div>
+    </div>
+  </aside>
+
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <span class="footer-logo">Brett Bowley</span>
+  <span class="footer-copy">© 2026 Brett Bowley. All rights reserved.</span>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner" id="lightbox-inner">
+    <button class="lightbox-close" id="lightbox-close">&#x2715; Close</button>
+    <img id="lightbox-img" src="" alt="" style="display:none" />
+    <div class="lightbox-video" id="lightbox-video" style="display:none">
+      <iframe id="lightbox-iframe" src="" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script src="project.js"></script>
+<script>
+  // Fade-in observer (mirrors main site)
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
