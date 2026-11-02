@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratory | Brett Bowley</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@300;400;600;700;800&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══ NAV ═════════════════════════════════════════ -->
+<nav>
+  <a href="index.html" class="nav-logo">Brett Bowley<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="laboratory.html">Lab</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="Brett_Bowley_Resume.pdf" class="resume-btn" target="_blank" rel="noopener">Resume</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ ALL LABORATORY ═══════════════════════════════ -->
+<section id="lab" class="listing-page">
+  <div class="section-header fade-in">
+    <a href="index.html#lab" class="page-back">← Back to home</a>
+    <div class="section-label">Experiments</div>
+    <h2>Laboratory</h2>
+    <p class="section-desc">Experimental prototypes, engine tests and things I&#39;ve built to learn something new.</p>
+  </div>
+
+  <!-- Cards come from labList.js — add new experiments there -->
+  <div class="projects-grid" data-cards="lab"></div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <span class="footer-logo">Brett Bowley</span>
+  <span class="footer-copy">© 2026 Brett Bowley. All rights reserved.</span>
+</footer>
+
+<script src="labList.js"></script>
+<script src="cards.js"></script>
+<script>
+  // Fade-in observer (mirrors main site)
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

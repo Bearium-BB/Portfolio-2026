@@ -14,9 +14,10 @@
   <a href="#hero" class="nav-logo">Brett Bowley<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#lab">Lab</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#" class="resume-btn">Resume</a></li>
+    <li><a href="Brett_Bowley_Resume.pdf" class="resume-btn" target="_blank" rel="noopener">Resume</a></li>
   </ul>
 </nav>
 
@@ -60,37 +61,6 @@
 
 <div class="divider"></div>
 
-<!-- ═══ TERMINAL ══════════════════════════════════════ -->
-<section id="terminal">
-  <div class="section-header fade-in" style="margin: 0 auto 2.5rem; text-align:center;">
-    <div class="section-label" style="justify-content:center">Interactive Terminal</div>
-    <h2>Explore the Developer Way</h2>
-    <p class="section-desc" style="margin:0 auto">
-      Type <code style="color:var(--cyan);background:rgba(34,211,238,0.1);padding:0.1rem 0.4rem;border-radius:4px;font-family:'Share Tech Mono',monospace">help</code> to get started.
-    </p>
-  </div>
-
-  <div class="terminal-window fade-in">
-    <div class="terminal-titlebar">
-      <div class="term-dot red"></div>
-      <div class="term-dot yellow"></div>
-      <div class="term-dot green"></div>
-      <span class="terminal-title">brett@portfolio:~</span>
-    </div>
-    <div class="terminal-body" id="term-body">
-      <div class="term-line"><span class="term-comment"># Welcome to Brett Bowley's Portfolio Terminal v1.0</span></div>
-      <div class="term-line"><span class="term-comment"># Type 'help' for available commands.</span></div>
-      <div class="term-line">&nbsp;</div>
-    </div>
-    <div class="terminal-input-row">
-      <span>brett@portfolio:~$</span>
-      <input type="text" id="term-input" placeholder="type a command..." autocomplete="off" spellcheck="false" />
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
 <!-- ═══ PROJECTS ══════════════════════════════════════ -->
 <section id="projects">
   <div class="section-header fade-in">
@@ -99,69 +69,8 @@
     <p class="section-desc"> Showcasing projects that have a full functioning game Loop.</p>
   </div>
 
-  <div class="projects-grid">
-
-    <!-- IN DEVELOPMENT -->
-    <a href="projectJimbo" class="project-card featured fade-in" style="transition-delay:0.05s">
-      <!-- <div class="card-badge wip">IN DEVELOPMENT</div> -->
-      <div class="card-img" style="background:linear-gradient(135deg,#1a0a2e,#0d0d1a);">
-        <img src="https://img.itch.zone/aW1nLzI2MzQ0Mjk4LnBuZw==/original/J97fvW.png" alt="Solum Rift screenshot" />
-      </div>
-      <div class="card-body">
-        <div class="card-engine">Prototype</div>
-        <div class="card-title">Jimbo, Remember to Hydrate</div>
-        <p class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet tellus at lectus cursus, vitae vestibulum turpis gravida.</p>
-        <div class="card-tags">
-          <span class="tag">Puzzle</span>
-          <span class="tag">Comedy</span>
-          <span class="tag">Adventure</span>
-          <span class="tag">Jam Game</span>
-          <span class="tag">Unity</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="projectPenroseTower" class="project-card fade-in" style="transition-delay:0.1s">
-      <div class="card-img" style="background:linear-gradient(135deg,#0a1628,#001a3d);">
-        <img src="https://img.itch.zone/aW1nLzI1MDk1MTY5LnBuZw==/original/PU8AO3.png" alt="Ipsum Arcade screenshot" />
-      </div>
-      <div class="card-body">
-        <div class="card-engine">Prototype</div>
-        <div class="card-title">Penrose Tower</div>
-        <p class="card-desc">Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec sollicitudin sapien ac lorem porta, sit amet dignissim odio.</p>
-        <div class="card-tags">
-          <span class="tag">Platformer</span>
-          <span class="tag">Adventure</span>
-          <span class="tag">2D</span>
-          <span class="tag">Pixel Art</span>
-          <span class="tag">Singleplayer</span>
-          <span class="tag">Endless</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="projectVickysVexingVocation" class="project-card fade-in" style="transition-delay:0.15s">
-      <div class="card-img" style="background:linear-gradient(135deg,#1a0a0a,#2d0a0a);">
-        <img src="https://img.itch.zone/aW1nLzI2NzQ4NzM1LnBuZw==/original/I0aV2B.png" alt="Dolor Drift screenshot" />
-      </div>
-      <div class="card-body">
-        <div class="card-engine">Sandbox</div>
-        <div class="card-title">Vicky's Vexing Vocation</div>
-        <p class="card-desc">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus fringilla tortor vitae elit gravida.</p>
-        <div class="card-tags">
-          <span class="tag">Roguelike</span>
-          <span class="tag">Twin-Stick Shooter</span>
-          <span class="tag">Action</span>
-          <span class="tag">Shooter</span>
-          <span class="tag">3D</span>
-          <span class="tag">Dinosaurs</span>
-          <span class="tag">Ghosts</span>
-          <span class="tag">Top-Down</span>
-        </div>
-      </div>
-    </a>
-
-  </div><!-- /.projects-grid -->
+  <!-- Cards come from projectsList.js (featured: true) -->
+  <div class="projects-grid" data-cards="projects" data-show="featured"></div>
 
   <div class="projects-footer fade-in">
     <a href="projects.html" class="btn-primary">View All Projects</a>
@@ -175,105 +84,17 @@
 
 <!-- ═══ LAB ═══════════════════════════════════════════ -->
 <section id="lab">
-  <div class="section-header fade-in" style="display:flex;justify-content:space-between;align-items:flex-end;max-width:100%">
-    <div>
-      <div class="section-label">Experiments</div>
-      <h2>Laboratory</h2>
-      <p class="section-desc">A selection of experimental prototypes and engine tests, presented with the same card style as the project portfolio.</p>
-    </div>
-    <a href="laboratory.html" class="btn-secondary" style="flex-shrink:0;margin-bottom:0.5rem">View all →</a>
+  <div class="section-header fade-in">
+    <div class="section-label">Experiments</div>
+    <h2>Laboratory</h2>
+    <p class="section-desc">A selection of experimental prototypes and engine tests, presented with the same card style as the project portfolio.</p>
   </div>
 
-  <div class="projects-grid lab-grid fade-in">
-    <a href="index.html" class="project-card fade-in" style="transition-delay:0.05s">
-      <div class="card-img" style="background:linear-gradient(135deg,#0f172a,#111827);">
-        <img src="https://picsum.photos/seed/lab1/1200/675" alt="Lorem Lab 1 screenshot" />
-      </div>
-      <div class="card-body">
-        <div class="card-engine">Experimental</div>
-        <div class="card-title">Lorem Lab 1</div>
-        <p class="card-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus vehicula nunc at tellus venenatis, porttitor arcu a, tempor elit.</p>
-        <div class="card-tags">
-          <span class="tag">Lighting</span>
-          <span class="tag">Rendering</span>
-        </div>
-      </div>
-    </a>
+  <!-- Cards come from labList.js (featured: true) -->
+  <div class="projects-grid" data-cards="lab" data-show="featured"></div>
 
-    <a href="index.html" class="project-card fade-in" style="transition-delay:0.08s">
-      <div class="card-img" style="background:linear-gradient(135deg,#111827,#0d1725);">
-        <img src="https://picsum.photos/seed/lab2/1200/675" alt="Ipsum Flux screenshot" />
-      </div>
-      <div class="card-body">
-        <div class="card-engine">Prototype</div>
-        <div class="card-title">Ipsum Flux</div>
-        <p class="card-desc">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Phasellus eget arcu sit amet est consequat interdum.</p>
-        <div class="card-tags">
-          <span class="tag">Physics</span>
-          <span class="tag">Simulation</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="index.html" class="project-card fade-in" style="transition-delay:0.11s">
-      <div class="card-img" style="background:linear-gradient(135deg,#1a0a0a,#2d0a0a);">
-        <img src="https://picsum.photos/seed/lab3/1200/675" alt="Dolor Circuit screenshot" />
-      </div>
-      <div class="card-body">
-        <div class="card-engine">Sandbox</div>
-        <div class="card-title">Dolor Circuit</div>
-        <p class="card-desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-        <div class="card-tags">
-          <span class="tag">Shooter</span>
-          <span class="tag">Prototype</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="index.html" class="project-card fade-in" style="transition-delay:0.14s">
-      <div class="card-img" style="background:linear-gradient(135deg,#0a1a2a,#01203d);">
-        <img src="https://picsum.photos/seed/lab4/1200/675" alt="Amet Beacon screenshot" />
-      </div>
-      <div class="card-body">
-        <div class="card-engine">Experimental</div>
-        <div class="card-title">Amet Beacon</div>
-        <p class="card-desc">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-        <div class="card-tags">
-          <span class="tag">Action</span>
-          <span class="tag">Platformer</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="index.html" class="project-card fade-in" style="transition-delay:0.17s">
-      <div class="card-img" style="background:linear-gradient(135deg,#1b1200,#2f2100);">
-        <img src="https://picsum.photos/seed/lab5/1200/675" alt="Nunc Mesh screenshot" />
-      </div>
-      <div class="card-body">
-        <div class="card-engine">Unity</div>
-        <div class="card-title">Nunc Mesh</div>
-        <p class="card-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <div class="card-tags">
-          <span class="tag">Sports</span>
-          <span class="tag">AI</span>
-        </div>
-      </div>
-    </a>
-
-    <a href="index.html" class="project-card fade-in" style="transition-delay:0.2s">
-      <div class="card-img" style="background:linear-gradient(135deg,#0d1a13,#12241b);">
-        <img src="https://picsum.photos/seed/lab6/1200/675" alt="Vero Sphere screenshot" />
-      </div>
-      <div class="card-body">
-        <div class="card-engine">Unity</div>
-        <div class="card-title">Vero Sphere</div>
-        <p class="card-desc">Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Maecenas sed diam eget risus varius blandit.</p>
-        <div class="card-tags">
-          <span class="tag">3D</span>
-          <span class="tag">Combat</span>
-        </div>
-      </div>
-    </a>
+  <div class="projects-footer fade-in">
+    <a href="laboratory.html" class="btn-primary">View All Lab Projects</a>
   </div>
 </section>
 
@@ -308,7 +129,7 @@
       </div>
 
       <div class="about-btns">
-        <a href="#" class="btn-primary">Download Resume</a>
+        <a href="Brett_Bowley_Resume.pdf" class="btn-primary" download="Brett_Bowley_Resume.pdf">Download Resume</a>
         <a href="#contact" class="btn-secondary">Get in Touch</a>
       </div>
     </div>
@@ -348,6 +169,9 @@
   <span class="footer-copy">© 2026 Brett Bowley. All rights reserved.</span>
 </footer>
 
+<script src="projectsList.js"></script>
+<script src="labList.js"></script>
+<script src="cards.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

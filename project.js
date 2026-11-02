@@ -10,7 +10,8 @@
    Page renderer — do not edit below unless adding
    new fields to the template.
    ───────────────────────────────────────────────────── */
-(function render(d) {
+// Lab posts load this file for the lightbox only — they have no PROJECT_DATA
+if (typeof PROJECT_DATA !== 'undefined') (function render(d) {
   // Page <title>
   document.getElementById('page-title').textContent =
     `${d.title} | Brett Bowley`;
@@ -32,12 +33,6 @@
     span.textContent = b.label;
     badgesEl.appendChild(span);
   });
-  if (d.noAI) {
-    const span = document.createElement('span');
-    span.className = 'proj-badge jam';
-    span.textContent = 'No Generative AI';
-    badgesEl.appendChild(span);
-  }
 
   // Cover image
   const cover = document.getElementById('proj-cover');
@@ -160,6 +155,12 @@
   }
 
 })(PROJECT_DATA);
+
+/* ─── Free-form content images — click to enlarge ── */
+document.querySelectorAll('.proj-contrib-body img, .lab-post-content img').forEach(img => {
+  img.loading = 'lazy';
+  img.addEventListener('click', () => openImageLightbox(img.src, img.alt));
+});
 
 /* ─── YouTube ID extractor ───────────────────────── */
 function extractYouTubeId(url) {

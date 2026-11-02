@@ -7,7 +7,6 @@ const PROJECT_DATA = {
   platforms:   ['Windows'],
   year:        '2026',
   size:        '49 MB',
-  noAI:        false,              // shows "No Generative AI" badge when true
 
   // ── Badges shown in hero ───────────────────────────
   //   type: 'released' | 'wip' | 'jam'

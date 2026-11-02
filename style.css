@@ -378,89 +378,6 @@ h2 {
   text-decoration: none;
 }
 
-/* ─── TERMINAL ────────────────────────────────────── */
-#terminal {
-  background: var(--bg2);
-  border-top: 1px solid var(--border2);
-  border-bottom: 1px solid var(--border2);
-}
-
-.terminal-window {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  max-width: 860px;
-  margin: 0 auto;
-  box-shadow: var(--glow2), 0 20px 60px rgba(0,0,0,0.5);
-}
-
-.terminal-titlebar {
-  background: var(--surface2);
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-bottom: 1px solid var(--border2);
-}
-
-.term-dot {
-  width: 12px; height: 12px;
-  border-radius: 50%;
-}
-
-.term-dot.red    { background: #ff5f56; }
-.term-dot.yellow { background: #ffbd2e; }
-.term-dot.green  { background: #27c93f; }
-
-.terminal-title {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
-  color: var(--text3);
-  margin-left: 0.5rem;
-}
-
-.terminal-body {
-  padding: 1.5rem;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
-  line-height: 1.9;
-  min-height: 260px;
-  max-height: 380px;
-  overflow-y: auto;
-}
-
-.term-line    { color: var(--text2); }
-.term-prompt  { color: var(--accent3); }
-.term-cmd     { color: var(--cyan); }
-.term-output  { color: var(--green); }
-.term-comment { color: var(--text3); }
-
-.terminal-input-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 1.5rem 1.5rem;
-  border-top: 1px solid var(--border2);
-}
-
-.terminal-input-row span {
-  color: var(--accent3);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
-}
-
-.terminal-input-row input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--cyan);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
-  caret-color: var(--cyan);
-}
-
 /* ─── PROJECT CARDS ───────────────────────────────── */
 .projects-grid {
   display: grid;
@@ -627,9 +544,14 @@ h2 {
 .projects-cta a { color: var(--accent3); text-decoration: none; }
 .projects-cta a:hover { text-decoration: underline; }
 
+/* ─── PROJECTS ──────────────────────────────────── */
+#projects {
+  background: var(--bg2);
+}
+
 /* ─── LAB STRIP ───────────────────────────────────── */
 #lab {
-  background: var(--bg2);
+  background: var(--bg);
   border-top: 1px solid var(--border2);
 }
 
@@ -651,12 +573,12 @@ h2 {
 
 .lab-strip-wrapper::before {
   left: 0;
-  background: linear-gradient(to right, var(--bg2), transparent);
+  background: linear-gradient(to right, var(--bg), transparent);
 }
 
 .lab-strip-wrapper::after {
   right: 0;
-  background: linear-gradient(to left, var(--bg2), transparent);
+  background: linear-gradient(to left, var(--bg), transparent);
 }
 
 .lab-strip {
@@ -684,33 +606,25 @@ h2 {
   transition: border-color 0.2s, transform 0.2s;
 }
 
-/* Solid background for project and lab view-all grid pages */
-body.projects-page #projects {
-  background: var(--surface);
-  border-radius: 0;
-  padding: 3rem 5%;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+/* ─── VIEW-ALL PAGES (projects.html / laboratory.html) ── */
+.listing-page {
+  min-height: calc(100vh - 64px);
+  padding-top: calc(64px + 4rem);
 }
 
-body.laboratory-page #lab {
-  background: #111827;
-  border-top: none;
-  border-radius: 0;
-  padding: 3rem 5%;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+.page-back {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s;
 }
 
-/* Laboratory grid layout for the lab view-all page */
-.lab-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-body.laboratory-page .lab-card {
-  width: 100%;
-}
+.page-back:hover { color: var(--accent3); }
 
 /* Ensure anchors with .lab-card behave as block items */
 .lab-card { display: block; }
@@ -756,7 +670,7 @@ body.laboratory-page .lab-card {
 }
 
 /* ─── ABOUT ───────────────────────────────────────── */
-#about { background: var(--bg); }
+#about { background: var(--bg2); }
 
 .about-grid {
   display: grid;
@@ -835,7 +749,7 @@ body.laboratory-page .lab-card {
 
 /* ─── CONTACT ─────────────────────────────────────── */
 #contact {
-  background: var(--bg2);
+  background: var(--bg);
   border-top: 1px solid var(--border2);
   text-align: center;
 }
@@ -879,7 +793,7 @@ body.laboratory-page .lab-card {
 
 /* ─── FOOTER ──────────────────────────────────────── */
 footer {
-  background: var(--bg);
+  background: var(--bg2);
   border-top: 1px solid var(--border2);
   padding: 1.5rem 5%;
   display: flex;

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Projects | Brett Bowley</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@300;400;600;700;800&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══ NAV ═════════════════════════════════════════ -->
+<nav>
+  <a href="index.html" class="nav-logo">Brett Bowley<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="laboratory.html">Lab</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="Brett_Bowley_Resume.pdf" class="resume-btn" target="_blank" rel="noopener">Resume</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ ALL ALL PROJECTS ═══════════════════════════════ -->
+<section id="projects" class="listing-page">
+  <div class="section-header fade-in">
+    <a href="index.html#projects" class="page-back">← Back to home</a>
+    <div class="section-label">Portfolio</div>
+    <h2>All Projects</h2>
+    <p class="section-desc">Every game project I&#39;ve worked on, from jam games to full prototypes.</p>
+  </div>
+
+  <!-- Cards come from projectsList.js — add new projects there -->
+  <div class="projects-grid" data-cards="projects"></div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <span class="footer-logo">Brett Bowley</span>
+  <span class="footer-copy">© 2026 Brett Bowley. All rights reserved.</span>
+</footer>
+
+<script src="projectsList.js"></script>
+<script src="cards.js"></script>
+<script>
+  // Fade-in observer (mirrors main site)
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

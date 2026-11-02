@@ -7,7 +7,6 @@ const PROJECT_DATA = {
   platforms:   ['Windows'],
   year:        '2026',
   size:        '466 MB',
-  noAI:        false,
 
   // ── Badges shown in hero ───────────────────────────
   badges: [

@@ -155,6 +155,110 @@
       margin-bottom: 2.5rem;
     }
 
+    /* My Contribution — free-form HTML box */
+    .proj-contrib {
+      margin-bottom: 2.5rem;
+    }
+
+    .proj-contrib-body {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.5rem 1.75rem;
+      color: var(--text2);
+      line-height: 1.9;
+    }
+
+    .proj-contrib-body > *,
+    .lab-post-content > * { margin-bottom: 1.1rem; }
+    .proj-contrib-body > *:last-child,
+    .lab-post-content > *:last-child { margin-bottom: 0; }
+
+    .proj-contrib-body h3,
+    .lab-post-content h3 {
+      font-family: 'Oxanium', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .proj-contrib-body ul,
+    .proj-contrib-body ol,
+    .lab-post-content ul,
+    .lab-post-content ol { padding-left: 1.25rem; }
+
+    .proj-contrib-body a,
+    .lab-post-content a { color: var(--cyan); }
+
+    .proj-contrib-body img,
+    .lab-post-content img {
+      display: block;
+      max-width: 100%;
+      border-radius: 6px;
+      border: 1px solid var(--border2);
+      cursor: zoom-in;
+      transition: border-color 0.2s;
+    }
+
+    .proj-contrib-body img:hover,
+    .lab-post-content img:hover { border-color: var(--accent); }
+
+    /* Lab post — single-column blog layout */
+    .lab-post {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 5% 5rem;
+    }
+
+    .lab-post-content {
+      color: var(--text2);
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+
+    .lab-post-content h2 {
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-top: 2.5rem;
+    }
+
+    .lab-post-content h2:first-child { margin-top: 0; }
+
+    .lab-post-content figure { margin: 0 0 1.1rem; }
+
+    .lab-post-content figcaption {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text3);
+      margin-top: 0.5rem;
+    }
+
+    .lab-video {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border2);
+      background: var(--bg3);
+    }
+
+    .lab-video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .lab-post-back {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border2);
+    }
+
     /* Screenshots / media */
     .proj-media {
       margin-bottom: 2.5rem;

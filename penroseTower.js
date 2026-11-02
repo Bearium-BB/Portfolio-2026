@@ -14,7 +14,6 @@ const PROJECT_DATA = {
   platforms:   ['Windows'],
   year:        '2026',
   size:        '46 MB',
-  noAI:        false,
 
   // ── Badges shown in hero ───────────────────────────
   //   type: 'released' | 'wip' | 'jam'
