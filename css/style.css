@@ -1,60 +1,80 @@
-/* ═══════════════════════════════════════════════════
-   Brett Bowley Portfolio — Stylesheet
-   ═══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════
+   BRETT BOWLEY PORTFOLIO — the look of the whole website
+   Every page uses this one file.
 
-/* ─── CSS VARIABLES (colors, shadows) ────────────── */
+   Contents
+     1. Colors            ← change the site's colors here
+     2. Base page
+     3. Nav bar
+     4. Buttons
+     5. Sections, labels, fade-in
+     6. Home page (hero, bear avatar, about, contact, email popup)
+     7. Cards (projects + lab)
+     8. "All Projects" / "Laboratory" list pages
+     9. Project & lab page header
+    10. Project page body + sidebar
+    11. Lab post page
+    12. Writing area (My Contribution + lab posts)
+    13. Image / video viewer (lightbox)
+    14. Footer
+    15. Error box
+    16. Phones and small screens
+   ═══════════════════════════════════════════════════════════════ */
+
+
+/* ─── 1. COLORS ──────────────────────────────────────────────────
+   Same palette as style-guides/color-palette.txt                  */
 :root {
-  /* Palette — see style-guides/color-palette.txt */
-  --heading-primary:   #8CCBFF;
-  --heading-secondary: #A9C9E8;
-  --text-body:         #C5D0DF;
-  --text-muted:        #71849B;
-  --accent-emphasis:   #55A6FF;
-  --accent-teal:       #63D6D0;
+  /* Text */
+  --white:       #FFFFFF;   /* big titles, card titles, names */
+  --heading:     #8CCBFF;   /* section labels, small headings, hover */
+  --subheading:  #A9C9E8;   /* headings inside your writing (h3) */
+  --text:        #C5D0DF;   /* normal paragraph text */
+  --muted:       #71849B;   /* captions, breadcrumbs, less important text */
+
+  /* Accents */
+  --accent:      #55A6FF;   /* bold labels, small dots, highlights */
+  --teal:        #63D6D0;   /* typewriter, links in writing, code, "Prototype" badge */
+  --green:       #4ADE80;   /* "Released" badge */
+  --blue:        #347FCB;   /* main brand blue: hover borders, divider lines */
 
   /* Buttons */
-  --btn-primary-bg:    #347FCB;
-  --btn-primary-text:  #FFFFFF;
-  --btn-secondary-bg:  #172B40;
+  --btn-primary-bg:       #347FCB;
+  --btn-primary-text:     #FFFFFF;
+  --btn-secondary-bg:     #172B40;
   --btn-secondary-border: #4779A5;
-  --btn-secondary-text:#A9D5FF;
-  --btn-hover-bg:      #55A6FF;
-  --btn-hover-text:    #07111D;
+  --btn-secondary-text:   #A9D5FF;
+  --btn-hover-bg:         #55A6FF;
+  --btn-hover-text:       #07111D;
 
-  --bg: #050508;
-  --bg2: #0b0b12;
-  --bg3: #101020;
-  --surface: #13131f;
-  --surface2: #1a1a2e;
-  --accent: var(--btn-primary-bg);
-  --accent2: var(--accent-emphasis);
-  --accent3: var(--heading-primary);
-  --cyan: var(--accent-teal);
-  --green: #4ade80;
-  --text: #FFFFFF;
-  --text2: var(--text-body);
-  --text3: var(--text-muted);
-  --border: rgba(52,127,203,0.2);
-  --border2: rgba(52,127,203,0.08);
-  --glow: 0 0 40px rgba(52,127,203,0.3);
-  --glow2: 0 0 20px rgba(52,127,203,0.15);
+  /* Backgrounds */
+  --bg:          #050508;   /* page background */
+  --bg2:         #0b0b12;   /* alternate section background */
+  --bg3:         #101020;   /* behind images while they load */
+  --surface:     #13131f;   /* cards and boxes */
+
+  /* Lines and glow */
+  --line:        rgba(52,127,203,0.2);
+  --line-soft:   rgba(52,127,203,0.08);
+  --glow:        0 0 20px rgba(52,127,203,0.15);
 }
 
-/* ─── RESET ───────────────────────────────────────── */
+
+/* ─── 2. BASE PAGE ────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
-  color: var(--text-body);
+  color: var(--text);
   font-family: 'Noto Sans', sans-serif;
   font-weight: 300;
   line-height: 1.7;
   overflow-x: hidden;
 }
 
-/* Noise overlay */
+/* Faint noise texture over everything */
 body::before {
   content: '';
   position: fixed;
@@ -65,7 +85,7 @@ body::before {
   opacity: 0.4;
 }
 
-/* Grid background */
+/* Faint grid lines behind everything */
 body::after {
   content: '';
   position: fixed;
@@ -78,7 +98,27 @@ body::after {
   z-index: 0;
 }
 
-/* ─── NAV ─────────────────────────────────────────── */
+h1 {
+  font-family: 'Oxanium', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  color: var(--white);
+}
+
+h2 {
+  font-family: 'Oxanium', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--white);
+}
+
+
+/* ─── 3. NAV BAR ──────────────────────────────────────────────── */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -90,19 +130,19 @@ nav {
   justify-content: space-between;
   background: rgba(5,5,8,0.85);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border2);
+  border-bottom: 1px solid var(--line-soft);
 }
 
 .nav-logo {
   font-family: 'Oxanium', sans-serif;
   font-weight: 700;
   font-size: 1rem;
-  color: var(--text);
+  color: var(--white);
   text-decoration: none;
   letter-spacing: 0.05em;
 }
 
-.nav-logo span { color: var(--accent2); }
+.nav-logo span { color: var(--accent); }
 
 .nav-links {
   display: flex;
@@ -114,14 +154,14 @@ nav {
 .nav-links a {
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.8rem;
-  color: var(--text2);
+  color: var(--text);
   text-decoration: none;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: color 0.2s;
 }
 
-.nav-links a:hover { color: var(--accent3); }
+.nav-links a:hover { color: var(--heading); }
 
 .nav-links .resume-btn {
   background: var(--btn-secondary-bg);
@@ -138,7 +178,107 @@ nav {
   color: var(--btn-hover-text);
 }
 
-/* ─── HERO ────────────────────────────────────────── */
+
+/* ─── 4. BUTTONS ──────────────────────────────────────────────── */
+.btn-primary,
+.btn-secondary {
+  font-family: 'Oxanium', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.85rem 2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 1px solid var(--btn-primary-bg);
+}
+
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--btn-secondary-border);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  background: var(--btn-hover-bg);
+  border-color: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}
+
+
+/* ─── 5. SECTIONS, LABELS, FADE-IN ────────────────────────────── */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 6rem 5%;
+}
+
+.section-header {
+  margin-bottom: 3.5rem;
+  max-width: 700px;
+}
+
+/* The small "// LABEL" line above a heading */
+.section-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--heading);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-label::before {
+  content: '//';
+  color: var(--muted);
+}
+
+.section-desc {
+  margin-top: 1rem;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.section-desc a {
+  color: var(--heading);
+  text-decoration: none;
+}
+
+/* Thin glowing line between home page sections */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--blue), transparent);
+  opacity: 0.3;
+  position: relative;
+  z-index: 1;
+}
+
+/* Anything with class="fade-in" slides up gently when scrolled into view */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ─── 6. HOME PAGE ────────────────────────────────────────────── */
 #hero {
   position: relative;
   z-index: 1;
@@ -151,10 +291,11 @@ nav {
 
 .hero-content { flex: 1; max-width: 620px; }
 
+/* Small line above a big title (also used on project and lab pages) */
 .hero-eyebrow {
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.85rem;
-  color: var(--accent3);
+  color: var(--heading);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
@@ -167,39 +308,38 @@ nav {
   content: '';
   display: block;
   width: 40px; height: 1px;
-  background: var(--accent2);
-}
-
-h1 {
-  font-family: 'Oxanium', sans-serif;
-  font-size: clamp(2.8rem, 6vw, 5rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
-  color: #fff;
-}
-
-h1 .name {
-  color: #fff;
+  background: var(--accent);
 }
 
 .hero-roles {
   font-family: 'Oxanium', sans-serif;
   font-size: clamp(1.1rem, 2.5vw, 1.6rem);
   font-weight: 300;
-  color: var(--text2);
+  color: var(--text);
   margin-bottom: 1.5rem;
   min-height: 2rem;
 }
 
 .hero-roles .role {
-  color: var(--cyan);
+  color: var(--teal);
   font-weight: 600;
 }
 
+/* Blinking cursor after the typewriter words */
+.typewriter {
+  display: inline-block;
+  border-right: 2px solid var(--teal);
+  animation: blink 0.8s step-end infinite;
+  padding-right: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { border-color: var(--teal); }
+  50%      { border-color: transparent; }
+}
+
 .hero-desc {
-  color: var(--text2);
+  color: var(--text);
   font-size: 1rem;
   max-width: 500px;
   margin-bottom: 2.5rem;
@@ -212,50 +352,6 @@ h1 .name {
   flex-wrap: wrap;
 }
 
-/* ─── BUTTONS ─────────────────────────────────────── */
-.btn-primary {
-  font-family: 'Oxanium', sans-serif;
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0.85rem 2rem;
-  background: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
-  border: 1px solid var(--btn-primary-bg);
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: background 0.2s, color 0.2s;
-}
-
-.btn-primary:hover {
-  background: var(--btn-hover-bg);
-  border-color: var(--btn-hover-bg);
-  color: var(--btn-hover-text);
-}
-
-.btn-secondary {
-  font-family: 'Oxanium', sans-serif;
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0.85rem 2rem;
-  background: var(--btn-secondary-bg);
-  color: var(--btn-secondary-text);
-  border: 1px solid var(--btn-secondary-border);
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
-}
-
-.btn-secondary:hover {
-  border-color: var(--btn-hover-bg);
-  background: var(--btn-hover-bg);
-  color: var(--btn-hover-text);
-}
-
-/* ─── SOCIAL LINKS ────────────────────────────────── */
 .social-links {
   display: flex;
   gap: 1.2rem;
@@ -263,7 +359,7 @@ h1 .name {
 }
 
 .social-links a {
-  color: var(--text3);
+  color: var(--muted);
   text-decoration: none;
   transition: color 0.2s;
   font-size: 1.2rem;
@@ -271,55 +367,18 @@ h1 .name {
   align-items: center;
 }
 
-.social-links a:hover { color: var(--accent3); }
+.social-links a:hover { color: var(--heading); }
 
-/* ─── HERO AVATAR ─────────────────────────────────── */
-.hero-avatar {
-  flex-shrink: 0;
-  position: relative;
-}
+/* Bear avatar — the drawing lives in images/site/bear-avatar.svg */
+.hero-avatar { flex-shrink: 0; }
 
-.hero-avatar .avatar-wrap {
+.hero-avatar .avatar {
+  display: block;
   width: 280px;
   height: 280px;
-  position: relative;
 }
 
-.hero-avatar .avatar-wrap svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.hero-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.avatar-ring {
-  position: absolute;
-  inset: -12px;
-  border-radius: 50%;
-  border: 1px solid rgba(52,127,203,0.3);
-  animation: spin 12s linear infinite;
-}
-
-.avatar-ring::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  width: 6px; height: 6px;
-  background: var(--accent2);
-  border-radius: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 0 10px var(--accent2);
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* Scroll indicator */
+/* "SCROLL" hint at the bottom of the hero */
 .scroll-hint {
   position: absolute;
   bottom: 2rem;
@@ -327,7 +386,7 @@ h1 .name {
   transform: translateX(-50%);
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.7rem;
-  color: var(--text3);
+  color: var(--muted);
   letter-spacing: 0.1em;
   display: flex;
   flex-direction: column;
@@ -340,358 +399,21 @@ h1 .name {
   content: '';
   width: 1px;
   height: 40px;
-  background: linear-gradient(to bottom, var(--accent2), transparent);
+  background: linear-gradient(to bottom, var(--accent), transparent);
 }
 
 @keyframes bounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(6px); }
+  50%      { transform: translateX(-50%) translateY(6px); }
 }
 
-/* ─── SECTIONS ────────────────────────────────────── */
-section {
-  position: relative;
-  z-index: 1;
-  padding: 6rem 5%;
-}
+/* Section backgrounds */
+#projects { background: var(--bg2); }
+#lab      { background: var(--bg); border-top: 1px solid var(--line-soft); }
+#about    { background: var(--bg2); }
+#contact  { background: var(--bg); border-top: 1px solid var(--line-soft); text-align: center; }
 
-.section-header {
-  margin-bottom: 3.5rem;
-  max-width: 700px;
-}
-
-.section-label {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
-  color: var(--accent3);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.section-label::before {
-  content: '//';
-  color: var(--text3);
-}
-
-h2 {
-  font-family: 'Oxanium', sans-serif;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  color: #fff;
-}
-
-.section-desc {
-  margin-top: 1rem;
-  color: var(--text2);
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-.section-desc a {
-  color: var(--accent3);
-  text-decoration: none;
-}
-
-/* ─── PROJECT CARDS ───────────────────────────────── */
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
-}
-
-.project-card {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 12px;
-  overflow: hidden;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-  position: relative;
-}
-
-.project-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-4px);
-  box-shadow: var(--glow2), 0 12px 40px rgba(0,0,0,0.4);
-}
-
-.project-card.featured {
-  grid-column: span 2;
-  border-color: rgba(52,127,203,0.3);
-  background: linear-gradient(135deg, var(--surface) 60%, rgba(52,127,203,0.05));
-}
-
-.card-badge {
-  position: absolute;
-  top: 1rem; left: 1rem;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: rgba(52,127,203,0.3);
-  color: var(--accent3);
-  border: 1px solid var(--accent);
-  padding: 0.25rem 0.6rem;
-  border-radius: 4px;
-  z-index: 2;
-}
-
-.card-badge.wip {
-  background: rgba(234,179,8,0.15);
-  color: #fbbf24;
-  border-color: rgba(234,179,8,0.4);
-}
-
-.card-img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  height: auto;
-  min-height: 120px;
-  background: var(--bg3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-}
-
-.project-card.featured .card-img { min-height: 160px; }
-
-/* Media inside card image should fill the 16:9 area */
-.card-img img,
-.card-img .media {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.card-img-placeholder {
-  font-family: 'Oxanium', sans-serif;
-  font-size: 3rem;
-  font-weight: 800;
-  color: rgba(52,127,203,0.15);
-  user-select: none;
-}
-
-.card-body {
-  padding: 1.25rem 1.5rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.card-engine {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
-  color: var(--accent3);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.card-engine::before {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--accent2);
-  flex-shrink: 0;
-}
-
-.card-title {
-  font-family: 'Oxanium', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-}
-
-.project-card.featured .card-title { font-size: 1.35rem; }
-
-.card-desc {
-  font-size: 0.875rem;
-  color: var(--text2);
-  line-height: 1.7;
-  margin-bottom: 1rem;
-  flex: 1;
-}
-
-.card-tags {
-  display: flex;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-
-.tag {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.65rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
-  background: rgba(52,127,203,0.1);
-  color: var(--text2);
-  border: 1px solid var(--border2);
-  letter-spacing: 0.05em;
-}
-
-.projects-footer {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 1rem;
-}
-
-.projects-cta {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--text2);
-  margin-top: 1rem;
-}
-
-.projects-cta a { color: var(--accent3); text-decoration: none; }
-.projects-cta a:hover { text-decoration: underline; }
-
-/* ─── PROJECTS ──────────────────────────────────── */
-#projects {
-  background: var(--bg2);
-}
-
-/* ─── LAB STRIP ───────────────────────────────────── */
-#lab {
-  background: var(--bg);
-  border-top: 1px solid var(--border2);
-}
-
-.lab-strip-wrapper {
-  overflow: hidden;
-  position: relative;
-  margin-top: 2rem;
-}
-
-.lab-strip-wrapper::before,
-.lab-strip-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 80px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.lab-strip-wrapper::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg), transparent);
-}
-
-.lab-strip-wrapper::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg), transparent);
-}
-
-.lab-strip {
-  display: flex;
-  gap: 1rem;
-  animation: scroll-left 35s linear infinite;
-  width: max-content;
-}
-
-.lab-strip:hover { animation-play-state: paused; }
-
-@keyframes scroll-left {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.lab-card {
-  flex-shrink: 0;
-  width: 220px;
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: border-color 0.2s, transform 0.2s;
-}
-
-/* ─── VIEW-ALL PAGES (projects.html / laboratory.html) ── */
-.listing-page {
-  min-height: calc(100vh - 64px);
-  padding-top: calc(64px + 4rem);
-}
-
-.page-back {
-  display: inline-block;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
-  color: var(--text3);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-decoration: none;
-  margin-bottom: 1.5rem;
-  transition: color 0.2s;
-}
-
-.page-back:hover { color: var(--accent3); }
-
-/* Ensure anchors with .lab-card behave as block items */
-.lab-card { display: block; }
-
-/* Remove default link underlines and keep inherited text color for card links */
-.project-card,
-.lab-card {
-  text-decoration: none;
-  color: inherit;
-}
-.project-card:hover,
-.lab-card:hover { text-decoration: none; }
-
-.lab-card:hover {
-  border-color: var(--accent);
-  transform: scale(1.03);
-}
-
-.lab-card img {
-  width: 100%;
-  height: 120px;
-  object-fit: cover;
-  display: block;
-  background: var(--bg3);
-}
-
-.lab-card-info { padding: 0.75rem; }
-
-.lab-card-engine {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--accent3);
-  letter-spacing: 0.08em;
-  margin-bottom: 0.3rem;
-}
-
-.lab-card-title {
-  font-family: 'Oxanium', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1.3;
-}
-
-/* ─── ABOUT ───────────────────────────────────────── */
-#about { background: var(--bg2); }
-
+/* About */
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -700,22 +422,26 @@ h2 {
 }
 
 .about-photo {
-  position: relative;
   border-radius: 12px;
   overflow: hidden;
-  aspect-ratio: 4/5;
+  aspect-ratio: 4 / 5;
   max-height: 500px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--line);
 }
 
 .about-photo img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
 
+.about-text { transition-delay: 0.1s; }
+
+.about-text h2 { margin-bottom: 1.5rem; }
+
 .about-text p {
-  color: var(--text2);
+  color: var(--text);
   font-size: 0.95rem;
   line-height: 1.9;
   margin-bottom: 1.25rem;
@@ -730,7 +456,7 @@ h2 {
 
 .stat-box {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--line);
   border-radius: 10px;
   padding: 1.25rem;
   text-align: center;
@@ -740,7 +466,7 @@ h2 {
   font-family: 'Oxanium', sans-serif;
   font-size: 2rem;
   font-weight: 800;
-  color: var(--accent3);
+  color: var(--heading);
   display: block;
   line-height: 1;
   margin-bottom: 0.4rem;
@@ -748,7 +474,7 @@ h2 {
 
 .stat-label {
   font-size: 0.8rem;
-  color: var(--text3);
+  color: var(--muted);
   line-height: 1.4;
 }
 
@@ -759,13 +485,7 @@ h2 {
   margin-top: 2rem;
 }
 
-/* ─── CONTACT ─────────────────────────────────────── */
-#contact {
-  background: var(--bg);
-  border-top: 1px solid var(--border2);
-  text-align: center;
-}
-
+/* Contact */
 #contact .section-header {
   margin: 0 auto 3rem;
   text-align: center;
@@ -787,10 +507,10 @@ h2 {
   gap: 0.5rem;
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.8rem;
-  color: var(--text2);
+  color: var(--text);
   text-decoration: none;
   padding: 0.6rem 1.2rem;
-  border: 1px solid var(--border2);
+  border: 1px solid var(--line-soft);
   border-radius: 8px;
   background: var(--surface);
   transition: border-color 0.2s, color 0.2s, background 0.2s;
@@ -798,153 +518,14 @@ h2 {
 }
 
 .contact-socials a:hover {
-  border-color: var(--accent);
-  color: var(--accent3);
+  border-color: var(--blue);
+  color: var(--heading);
   background: rgba(52,127,203,0.08);
 }
 
-/* ─── FOOTER ──────────────────────────────────────── */
-footer {
-  background: var(--bg2);
-  border-top: 1px solid var(--border2);
-  padding: 1.5rem 5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  z-index: 1;
-}
+.contact-cta { transition-delay: 0.15s; }
 
-.footer-logo {
-  font-family: 'Oxanium', sans-serif;
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: var(--text3);
-}
-
-.footer-copy {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.72rem;
-  color: var(--text3);
-  letter-spacing: 0.05em;
-}
-
-/* ─── DIVIDER ─────────────────────────────────────── */
-.divider {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--accent), transparent);
-  opacity: 0.3;
-  margin: 0;
-  position: relative;
-  z-index: 1;
-}
-
-/* ─── TYPEWRITER CURSOR ───────────────────────────── */
-.typewriter {
-  display: inline-block;
-  border-right: 2px solid var(--cyan);
-  animation: blink 0.8s step-end infinite;
-  padding-right: 2px;
-}
-
-@keyframes blink {
-  0%, 100% { border-color: var(--cyan); }
-  50%       { border-color: transparent; }
-}
-
-/* ─── FADE-IN ON SCROLL ───────────────────────────── */
-.fade-in {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ─── RESPONSIVE ──────────────────────────────────── */
-@media (max-width: 900px) {
-  #hero { flex-direction: column-reverse; padding-top: 100px; text-align: center; }
-  .hero-content { max-width: 100%; }
-  .hero-eyebrow, .hero-eyebrow::before { display: none; }
-  .hero-btns, .social-links { justify-content: center; }
-  .hero-avatar .avatar-wrap { width: 200px; height: 200px; }
-  .nav-links { display: none; }
-}
-
-@media (max-width: 768px) {
-  .project-card.featured { grid-column: span 1; }
-  .about-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 600px) {
-  .projects-grid { grid-template-columns: 1fr; }
-  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
-}
-
-/* ─── GitHub badge + filter toggle ───────────────── */
-.card-github {
-  margin-left: 0.6rem;
-  padding: 0.1rem 0.5rem;
-  border-radius: 4px;
-  border: 1px solid var(--btn-secondary-border);
-  background: var(--btn-secondary-bg);
-  color: var(--btn-secondary-text);
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
-}
-
-.filter-toggle {
-  display: inline-flex;
-  margin-bottom: 1.5rem;
-  border: 1px solid var(--btn-secondary-border);
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.filter-btn {
-  font-family: 'Oxanium', sans-serif;
-  font-weight: 600;
-  font-size: 0.85rem;
-  padding: 0.55rem 1.2rem;
-  background: var(--btn-secondary-bg);
-  color: var(--btn-secondary-text);
-  border: none;
-  border-right: 1px solid var(--btn-secondary-border);
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-
-.filter-btn:last-child { border-right: none; }
-
-.filter-btn:hover {
-  background: var(--btn-hover-bg);
-  color: var(--btn-hover-text);
-}
-
-.filter-btn.active {
-  background: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
-}
-
-.filter-empty {
-  color: var(--text3);
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
-  margin-bottom: 2.5rem;
-}
-
-.project-card[hidden] { display: none; }
-
-.github-line { margin-bottom: 1.5rem; }
-.github-line a { display: inline-flex; align-items: center; gap: 0.6rem; }
-
-/* ─── Copy-email popup (centered on screen) ───────── */
-.email-wrap { position: relative; display: inline-block; }
-
+/* "Email copied!" message in the middle of the screen */
 .copy-popup {
   position: fixed;
   inset: 0;
@@ -977,24 +558,836 @@ footer {
 
 .copy-popup.show .copy-popup-card { transform: scale(1); }
 
-.copy-popup-card svg { color: var(--accent-teal); margin-bottom: 0.4rem; }
+.copy-popup-card svg { color: var(--teal); margin-bottom: 0.4rem; }
 
 .copy-popup-card strong {
   font-family: 'Oxanium', sans-serif;
   font-size: 1.6rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--white);
 }
 
 .copy-popup-card p {
   font-size: 1rem;
-  color: var(--text-body);
-  margin: 0;
+  color: var(--text);
 }
 
 .copy-popup-card span {
   margin-top: 0.4rem;
   font-family: 'Share Tech Mono', monospace;
   font-size: 0.95rem;
-  color: var(--accent-teal);
+  color: var(--teal);
+}
+
+
+/* ─── 7. CARDS ────────────────────────────────────────────────── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+}
+
+.project-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-4px);
+  box-shadow: var(--glow), 0 12px 40px rgba(0,0,0,0.4);
+}
+
+/* bigCard: true in the data file → twice as wide */
+.project-card.card-big {
+  grid-column: span 2;
+  border-color: rgba(52,127,203,0.3);
+  background: linear-gradient(135deg, var(--surface) 60%, rgba(52,127,203,0.05));
+}
+
+.card-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 120px;
+  background: var(--bg3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-big .card-img { min-height: 160px; }
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-body {
+  padding: 1.25rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Small label above the card title (status for projects, engine for lab posts) */
+.card-engine {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--heading);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card-engine::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.card-title {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.card-big .card-title { font-size: 1.35rem; }
+
+.card-desc {
+  font-size: 0.875rem;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.card-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+/* Small tag chip (cards and project sidebar) */
+.tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(52,127,203,0.1);
+  color: var(--text);
+  border: 1px solid var(--line-soft);
+  letter-spacing: 0.05em;
+}
+
+/* "View All ..." button row under a card grid */
+.projects-footer {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+
+/* ─── 8. "ALL PROJECTS" / "LABORATORY" LIST PAGES ─────────────── */
+.listing-page {
+  min-height: calc(100vh - 64px);
+  padding-top: calc(64px + 4rem);
+}
+
+.page-back {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s;
+}
+
+.page-back:hover { color: var(--heading); }
+
+
+/* ─── 9. PROJECT & LAB PAGE HEADER ────────────────────────────── */
+/* Your writing stays hidden until site.js has built the page around it */
+body > #my-contribution,
+body > #lab-post { display: none; }
+
+.proj-hero {
+  position: relative;
+  z-index: 1;
+  min-height: 70vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0;
+  overflow: hidden;
+}
+
+.proj-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Darkens the bottom of the banner so the title is readable */
+.proj-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(5,5,8,0.3) 0%,
+    rgba(5,5,8,0.2) 40%,
+    rgba(5,5,8,0.85) 80%,
+    var(--bg) 100%
+  );
+}
+
+.proj-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 3rem 5% 3.5rem;
+  width: 100%;
+}
+
+.proj-breadcrumb {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.proj-breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.proj-breadcrumb a:hover { color: var(--heading); }
+
+.proj-hero-content h1 {
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  margin-bottom: 0.75rem;
+}
+
+.proj-hero-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Badges under the title: blue by default, colored for the project status */
+.proj-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  color: var(--heading);
+  background: rgba(52,127,203,0.1);
+}
+
+.proj-badge.released {
+  color: var(--green);
+  border-color: rgba(74,222,128,0.35);
+  background: rgba(74,222,128,0.08);
+}
+
+.proj-badge.in-progress {
+  color: var(--teal);
+  border-color: rgba(99,214,208,0.35);
+  background: rgba(99,214,208,0.08);
+}
+
+
+/* ─── 10. PROJECT PAGE BODY + SIDEBAR ─────────────────────────── */
+.proj-body {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 5% 5rem;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+/* Each block in the main column: About the Game, Media, My Contribution, Team */
+.proj-block { margin-bottom: 2.5rem; }
+.proj-block:last-child { margin-bottom: 0; }
+
+.proj-section-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.1rem;
+  color: var(--heading);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.proj-section-label::before {
+  content: '//';
+  color: var(--muted);
+}
+
+.proj-desc {
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.9;
+  margin-bottom: 1.1rem;
+}
+
+/* Media grid: pictures and YouTube videos */
+.proj-screenshots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.proj-media-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  background: var(--bg3);
+  aspect-ratio: 16 / 9;
+  cursor: zoom-in;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.proj-media-thumb.is-video { cursor: pointer; }
+
+.proj-media-thumb:hover {
+  border-color: var(--blue);
+  transform: scale(1.02);
+}
+
+.proj-media-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.proj-media-thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(5,5,8,0.3);
+  transition: background 0.2s;
+  pointer-events: none;
+}
+
+.proj-media-thumb:hover::after { background: rgba(5,5,8,0.15); }
+
+.proj-play-btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.proj-play-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(5,5,8,0.75);
+  border: 2px solid rgba(255,255,255,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.proj-media-thumb:hover .proj-play-circle {
+  background: var(--blue);
+  border-color: var(--accent);
+  transform: scale(1.1);
+}
+
+.proj-play-circle svg { margin-left: 3px; }
+
+/* Team */
+.proj-credits-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.credit-card {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  padding: 0.85rem 1.2rem;
+  flex: 1;
+  min-width: 160px;
+}
+
+.credit-role {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--heading);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.credit-name {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+/* Sidebar */
+.proj-sidebar {
+  position: sticky;
+  top: 80px;
+}
+
+.proj-cover-img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  box-shadow: var(--glow);
+  display: block;
+  margin-bottom: 1.5rem;
+  object-fit: cover;
+}
+
+.proj-download-btn,
+.proj-side-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.proj-download-btn {
+  font-family: 'Oxanium', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.95rem 1.5rem;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 1px solid var(--btn-primary-bg);
+  margin-bottom: 1.25rem;
+}
+
+/* "View on itch.io" / "View on GitHub" */
+.proj-side-btn {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.78rem;
+  padding: 0.7rem 1.5rem;
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--btn-secondary-border);
+  margin-bottom: 1.5rem;
+}
+
+.proj-download-btn:hover,
+.proj-side-btn:hover {
+  background: var(--btn-hover-bg);
+  border-color: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}
+
+/* Info table: Status, Engine, Platform, Year, File size */
+.proj-info-table {
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.proj-info-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--line-soft);
+  gap: 1rem;
+}
+
+.proj-info-row:last-child { border-bottom: none; }
+
+.proj-info-key {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  min-width: 80px;
+  padding-top: 0.05rem;
+}
+
+.proj-info-val {
+  font-size: 0.85rem;
+  color: var(--white);
+  line-height: 1.5;
+}
+
+.proj-tags-label { margin-bottom: 0.75rem; }
+
+.proj-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+
+/* ─── 11. LAB POST PAGE ───────────────────────────────────────── */
+.lab-post {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 5% 5rem;
+}
+
+.lab-actions { margin-bottom: 1.5rem; }
+
+/* Bottom row: "Back to Laboratory" and "View the code on GitHub" */
+.lab-post-back {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.lab-actions a,
+.lab-post-back a { display: inline-block; }
+
+
+/* ─── 12. WRITING AREA ────────────────────────────────────────────
+   Styles for what you write in a project page (My Contribution)
+   and in a lab post. See style-guides/how-to-add-pages.md          */
+.writing {
+  color: var(--text);
+  line-height: 1.9;
+}
+
+.writing > * { margin-bottom: 1.1rem; }
+.writing > *:last-child { margin-bottom: 0; }
+
+/* <h2> = big section heading (lab posts) */
+.writing h2 {
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.writing h2:first-child { margin-top: 0; }
+
+/* <h3> = section heading (My Contribution) */
+.writing h3 {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--subheading);
+}
+
+.writing ul,
+.writing ol { padding-left: 1.25rem; }
+
+.writing strong { color: var(--accent); font-weight: 600; }
+
+.writing a { color: var(--teal); }
+
+/* Pictures, GIFs and videos — click a picture to see it full size */
+.writing img,
+.writing video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--line-soft);
+}
+
+.writing img {
+  cursor: zoom-in;
+  transition: border-color 0.2s;
+}
+
+.writing img:hover { border-color: var(--blue); }
+
+/* Size: add class="small", "medium" or "large" to an <img> or <video> */
+.writing img.small,  .writing video.small  { width: 280px; }
+.writing img.medium, .writing video.medium { width: 480px; }
+.writing img.large,  .writing video.large  { width: 100%; }
+
+.writing figure { margin: 0 0 1.1rem; }
+
+.writing figcaption {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+/* `inline code` and code blocks */
+.writing code {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9em;
+  color: var(--teal);
+  background: var(--surface);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
+.writing pre {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+}
+
+.writing pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* Dashed placeholder box: <div class="media-slot">GIF: what it shows</div> */
+.media-slot {
+  max-width: 480px;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  border: 1px dashed var(--line-soft);
+  border-radius: 6px;
+  background: var(--bg3);
+  color: var(--muted);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+}
+
+/* YouTube video inside your writing:
+   <div class="video-embed"><iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe></div> */
+.video-embed {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  background: var(--bg3);
+}
+
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+/* ─── 13. IMAGE / VIDEO VIEWER (LIGHTBOX) ─────────────────────── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(5,5,8,0.92);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;   /* clicking the dark background closes it */
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox-inner {
+  position: relative;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+  max-width: 90vw;
+}
+
+.lightbox-close {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--btn-secondary-text);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--btn-secondary-bg);
+  border: 1px solid var(--btn-secondary-border);
+  border-radius: 4px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.lightbox-close:hover {
+  color: var(--btn-hover-text);
+  background: var(--btn-hover-bg);
+  border-color: var(--btn-hover-bg);
+}
+
+.lightbox-inner img {
+  max-width: 90vw;
+  max-height: 82vh;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  display: block;
+}
+
+.lightbox-video {
+  width: min(90vw, 1100px);
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.lightbox-video iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+
+/* ─── 14. FOOTER ──────────────────────────────────────────────── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--line-soft);
+  padding: 1.5rem 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-logo {
+  font-family: 'Oxanium', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.footer-copy {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+
+/* ─── 15. ERROR BOX ───────────────────────────────────────────────
+   Shown at the top of a page when something in a data file is wrong */
+.site-error {
+  position: relative;
+  z-index: 50;
+  margin: calc(64px + 1.5rem) 5% 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #ff6b6b;
+  border-radius: 8px;
+  background: rgba(255,107,107,0.08);
+  color: #ffd4d4;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.site-error strong {
+  display: block;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+}
+
+/* Blue version, used on the template pages */
+.site-error.note {
+  border-color: var(--btn-secondary-border);
+  background: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+}
+
+.site-error + .site-error { margin-top: 0; }
+
+
+/* ─── 16. PHONES AND SMALL SCREENS ────────────────────────────── */
+@media (max-width: 900px) {
+  #hero { flex-direction: column-reverse; padding-top: 100px; text-align: center; }
+  .hero-content { max-width: 100%; }
+  .hero-eyebrow, .hero-eyebrow::before { display: none; }
+  .hero-btns, .social-links { justify-content: center; }
+  .hero-avatar .avatar { width: 200px; height: 200px; }
+  .nav-links { display: none; }
+
+  .proj-body { grid-template-columns: 1fr; }
+  .proj-sidebar { position: static; order: -1; }
+  .proj-cover-img { max-height: 280px; }
+}
+
+@media (max-width: 768px) {
+  .project-card.card-big { grid-column: span 1; }
+  .about-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .proj-hero { min-height: 55vh; }
+  .proj-screenshots { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
 }

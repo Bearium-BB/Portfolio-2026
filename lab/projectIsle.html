@@ -3,139 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Isle | Brett Bowley</title>
+  <!-- Keep this line: it makes every link and picture path start from the main website folder -->
+  <base href="../">
+  <title>Brett Bowley</title>
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@300;400;600;700;800&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/project.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-page="lab">
 
-<!-- ═══ NAV ═════════════════════════════════════════ -->
-<nav>
-  <a href="../index.html" class="nav-logo">Brett Bowley<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="../projects.html">Projects</a></li>
-    <li><a href="../laboratory.html">Lab</a></li>
-    <li><a href="../index.html#about">About</a></li>
-    <li><a href="../index.html#contact">Contact</a></li>
-    <li><a href="../files/Brett_Bowley_Resume.pdf" class="resume-btn" target="_blank" rel="noopener">Resume</a></li>
-  </ul>
-</nav>
+<!-- ════════════════════════════════════════════════════════════════
+     LAB POST — write the post inside the box below.
 
-<!-- ═══ HERO BANNER ══════════════════════════════════ -->
-<section class="proj-hero">
-  <img class="proj-hero-img" src="../images/lab/projectIsleMap.png" alt="Generated island map with three regions" />
-  <div class="proj-hero-overlay"></div>
-  <div class="proj-hero-content">
-    <div class="proj-breadcrumb">
-      <a href="../index.html">Home</a>
-      <span>/</span>
-      <a href="../laboratory.html">Laboratory</a>
-      <span>/</span>
-      <span>Project Isle</span>
-    </div>
-    <div class="hero-eyebrow">Unity</div>
-    <h1><span class="name">Project Isle</span></h1>
-    <div class="proj-hero-meta">
-      <span class="proj-badge jam">Procedural Generation</span>
-      <span class="proj-badge jam">Texture Atlas</span>
-      <span class="proj-badge jam">Chunk Streaming</span>
-      <span class="proj-badge jam">Tech Demo</span>
-    </div>
-  </div>
-</section>
+     The header (title, banner, tags) and the GitHub buttons come
+     from this post's block in data/lab.js.
+     The block is found by this file's name: projectIsle.html → id: 'projectIsle'
 
-<!-- ═══ POST ═════════════════════════════════════════
-     Plain HTML — write anything inside <div class="lab-post-content">:
-       <h2>Heading</h2>     <p>Paragraph</p>     <ul><li>List</li></ul>
-       <img src="..." alt="..." />   (click opens full size)
-       Image size: <img class="small|medium|large" ...> or <img width="400" ...>
-       <figure><img src="..." alt="..." /><figcaption>Caption</figcaption></figure>
-       <div class="lab-video"><iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe></div>
-       <pre><code>code here</code></pre>
-       Placeholder for a GIF: <div class="media-slot">GIF: what it shows</div>
-       (replace with <img class="medium" src="../images/lab/file.gif" alt="..." />)
-     To make a new post: copy this file, edit it, then add an entry
-     in data/labList.js with url pointing to the new file.
-     ════════════════════════════════════════════════════ -->
-<article class="lab-post">
-  <div class="lab-post-content fade-in">
-    <p class="github-line"><a href="https://github.com/Bearium-BB/ProjectIsle" class="btn-secondary" target="_blank" rel="noopener">View the code on GitHub</a></p>
+     How to write it (headings, pictures, code, videos):
+     style-guides/how-to-add-pages.md
+     ════════════════════════════════════════════════════════════════ -->
+<div id="lab-post">
 
-    <h2>The Experiment</h2>
-    <p>
-      Project Isle started as a survival game on a generated island. Somewhere along the way I got bored of
-      the game, but the systems underneath had turned into something I wanted to keep, so it became a tech demo
-      instead. It's built in Unity 6 and covers three things: how the island map is generated, how textures are
-      loaded and applied from atlases, and how a large map is streamed in around the player.
-    </p>
-    <div class="media-slot">GIF: walking around the generated island</div>
+  <h2>The Experiment</h2>
+  <p>
+    Project Isle started as a survival game on a generated island. Somewhere along the way I got bored of
+    the game, but the systems underneath had turned into something I wanted to keep, so it became a tech demo
+    instead. It's built in Unity 6 and covers three things: how the island map is generated, how textures are
+    loaded and applied from atlases, and how a large map is streamed in around the player.
+  </p>
+  <div class="media-slot">GIF: walking around the generated island</div>
 
-    <h2>Map Generation</h2>
-    <p>
-      Most generators run noise over a whole grid and cut it at a threshold. I wanted to try building the
-      island out of shapes instead. Each shape is a ring of ten points whose distance from the center is pushed
-      in and out by Perlin noise, joined up with straight lines. I stack fifty of these, and every new one starts
-      at a random point on the one before it, so the island wanders across the map instead of forming a circle.
-    </p>
-    <p>
-      That gives me an outline but no idea what's land. To find out, I flood fill the empty space from the edge
-      of a padded grid. Anything the fill can't reach has to be inside the island, and any land cell touching
-      water is the coastline. Running a second fill fills in holes in the shape too, so there are no
-      accidental lakes.
-    </p>
-    <figure>
-      <img class="large" src="../images/lab/projectIsleMap.png" alt="Island generated with the same algorithm, coloured by region" />
-      <figcaption>An island made with the same steps (recreated outside Unity to draw this picture). Light blue is the coastline and the other colors are regions.</figcaption>
-    </figure>
+  <h2>Map Generation</h2>
+  <p>
+    Most generators run noise over a whole grid and cut it at a threshold. I wanted to try building the
+    island out of shapes instead. Each shape is a ring of ten points whose distance from the center is pushed
+    in and out by Perlin noise, joined up with straight lines. I stack fifty of these, and every new one starts
+    at a random point on the one before it, so the island wanders across the map instead of forming a circle.
+  </p>
+  <p>
+    That gives me an outline but no idea what's land. To find out, I flood fill the empty space from the edge
+    of a padded grid. Anything the fill can't reach has to be inside the island, and any land cell touching
+    water is the coastline. Running a second fill fills in holes in the shape too, so there are no
+    accidental lakes.
+  </p>
+  <figure>
+    <img class="large" src="images/lab/projectIsle/map.png" alt="Island generated with the same algorithm, coloured by region" />
+    <figcaption>An island made with the same steps (recreated outside Unity to draw this picture). Light blue is the coastline and the other colors are regions.</figcaption>
+  </figure>
 <pre><code>// each blob starts where a random point of the last one ended
 newStartingPoint = blob[Random.Range(0, blob.Count)];
 
 // outside = flood fill from the border of the padded grid
 // land    = every cell the flood fill could not reach
 // coast   = land cells that touch an outside cell</code></pre>
-    <p>
-      Regions work the same way. I drop a few random seed points on the land and grow them all at once with a
-      breadth-first flood fill, so each region spreads outward until it bumps into its neighbours or the coast.
-      It's the same flood fill idea for the coastline, the interior and the regions, which kept the code small.
-    </p>
+  <p>
+    Regions work the same way. I drop a few random seed points on the land and grow them all at once with a
+    breadth-first flood fill, so each region spreads outward until it bumps into its neighbours or the coast.
+    It's the same flood fill idea for the coastline, the interior and the regions, which kept the code small.
+  </p>
 
-    <h2>Populating the Map</h2>
-    <p>
-      Every region type has its own object to spawn, like trees, set up in the Inspector. The map is scanned once
-      and each node is sorted into its region's list of free positions. Then the spawner picks a random region
-      that still has space, picks a random position inside it, and swaps that position with the last one in the
-      list before popping it off, so removing a used spot is instant.
-    </p>
+  <h2>Populating the Map</h2>
+  <p>
+    Every region type has its own object to spawn, like trees, set up in the Inspector. The map is scanned once
+    and each node is sorted into its region's list of free positions. Then the spawner picks a random region
+    that still has space, picks a random position inside it, and swaps that position with the last one in the
+    list before popping it off, so removing a used spot is instant.
+  </p>
 
-    <h2>Chunks and Streaming</h2>
-    <p>
-      The map is 1024 by 1024 tiles, which is over a million nodes, so building it all at once was never an option.
-      It's split into 32 by 32 chunks of 32 by 32 tiles, and only the chunks inside a circle of radius three
-      around the player exist at any time. When the player steps into a new chunk, the old meshes and objects go
-      back to a pool and the nearby ones are built. Spawn positions belong to their chunk, so trees appear and
-      disappear along with the ground they stand on.
-    </p>
-    <div class="media-slot">GIF: chunks loading as the player moves</div>
+  <h2>Chunks and Streaming</h2>
+  <p>
+    The map is 1024 by 1024 tiles, which is over a million nodes, so building it all at once was never an option.
+    It's split into 32 by 32 chunks of 32 by 32 tiles, and only the chunks inside a circle of radius three
+    around the player exist at any time. When the player steps into a new chunk, the old meshes and objects go
+    back to a pool and the nearby ones are built. Spawn positions belong to their chunk, so trees appear and
+    disappear along with the ground they stand on.
+  </p>
+  <div class="media-slot">GIF: chunks loading as the player moves</div>
 
-    <h2>Texture Atlases</h2>
-    <p>
-      Every chunk is a single mesh with a single material, and a texture atlas is what makes that possible. One
-      big image holds all the tiles, and each tile on the mesh just points its UVs at a different part of it.
-      Each tile gets its own four vertices, so it can have its own UVs, and the map node's region decides which
-      part of the atlas it uses.
-    </p>
-    <figure>
-      <img class="large" src="../images/lab/projectIsleAtlasRow.png" alt="The biome texture atlas: grass, ice, water and purple forest tiles" />
-      <figcaption>The biome atlas: four 512px tiles, addressed by tile column and row.</figcaption>
-    </figure>
-    <p>
-      I wanted the atlases to be data, not code. Two JSON files describe everything: one lists the atlas images,
-      and the other gives each texture an atlas id, a tile size and a position in the grid. A texture service
-      reads the PNGs from StreamingAssets at runtime, so adding a new texture is a JSON entry rather than a code
-      change. The atlas is loaded with point filtering, clamped edges and no mipmaps, which keeps the tile edges
-      crisp and stops neighboring tiles blurring into each other.
-    </p>
+  <h2>Texture Atlases</h2>
+  <p>
+    Every chunk is a single mesh with a single material, and a texture atlas is what makes that possible. One
+    big image holds all the tiles, and each tile on the mesh just points its UVs at a different part of it.
+    Each tile gets its own four vertices, so it can have its own UVs, and the map node's region decides which
+    part of the atlas it uses.
+  </p>
+  <figure>
+    <img class="large" src="images/lab/projectIsle/atlas.png" alt="The biome texture atlas: grass, ice, water and purple forest tiles" />
+    <figcaption>The biome atlas: four 512px tiles, addressed by tile column and row.</figcaption>
+  </figure>
+  <p>
+    I wanted the atlases to be data, not code. Two JSON files describe everything: one lists the atlas images,
+    and the other gives each texture an atlas id, a tile size and a position in the grid. A texture service
+    reads the PNGs from StreamingAssets at runtime, so adding a new texture is a JSON entry rather than a code
+    change. The atlas is loaded with point filtering, clamped edges and no mipmaps, which keeps the tile edges
+    crisp and stops neighboring tiles blurring into each other.
+  </p>
 <pre><code>// tile (tileX, tileY) of an atlas, as UV coordinates
 uMin = (float)(tileX * tileWidth) / atlasWidth;
 uMax = (float)((tileX + 1) * tileWidth) / atlasWidth;
@@ -143,75 +104,41 @@ uMax = (float)((tileX + 1) * tileWidth) / atlasWidth;
 // Unity UVs start at the bottom, atlas rows start at the top
 vMin = 1.0f - (float)((tileY + 1) * tileHeight) / atlasHeight;
 vMax = 1.0f - (float)(tileY * tileHeight) / atlasHeight;</code></pre>
-    <p>
-      The one thing that tripped me up was that Unity's UVs start at the bottom while atlas rows are counted from
-      the top, so the V values have to be flipped.
-    </p>
+  <p>
+    The one thing that tripped me up was that Unity's UVs start at the bottom while atlas rows are counted from
+    the top, so the V values have to be flipped.
+  </p>
 
-    <h2>Object Pooling</h2>
-    <p>
-      Both the chunk meshes and the trees come from a pool. Pools are looked up by id, and asking for an object
-      returns an inactive one if there is any and only creates a new one when there isn't. That means walking
-      around the island reuses the same GameObjects instead of creating and destroying them every time a chunk
-      changes.
-    </p>
+  <h2>Object Pooling</h2>
+  <p>
+    Both the chunk meshes and the trees come from a pool. Pools are looked up by id, and asking for an object
+    returns an inactive one if there is any and only creates a new one when there isn't. That means walking
+    around the island reuses the same GameObjects instead of creating and destroying them every time a chunk
+    changes.
+  </p>
 
-    <h2>What I Learned</h2>
-    <p>
-      The atlas approach kept draw calls low, since a whole chunk is one mesh and one material no matter how many
-      tile types it uses. I was also surprised how far flood fill got me: the coastline, the interior and the
-      regions all came from nearly the same piece of code. And chunking had to be a decision made early, because
-      a map this size can't be treated as one object.
-    </p>
+  <h2>What I Learned</h2>
+  <p>
+    The atlas approach kept draw calls low, since a whole chunk is one mesh and one material no matter how many
+    tile types it uses. I was also surprised how far flood fill got me: the coastline, the interior and the
+    regions all came from nearly the same piece of code. And chunking had to be a decision made early, because
+    a map this size can't be treated as one object.
+  </p>
 
-    <h2>What I'd Improve Next</h2>
-    <p>
-      A new mesh is built every time a chunk loads, so there's a small hitch when crossing chunk borders.
-      Caching those meshes would fix it. The tile used for each region is also picked with fixed ids in code,
-      and it should come from the JSON like everything else. Beyond that:
-    </p>
-    <ul>
-      <li>Add more region types, since seven seed points currently share only three.</li>
-      <li>Add padding around each atlas tile to prevent edge bleeding if filtering is ever turned on.</li>
-    </ul>
+  <h2>What I'd Improve Next</h2>
+  <p>
+    A new mesh is built every time a chunk loads, so there's a small hitch when crossing chunk borders.
+    Caching those meshes would fix it. The tile used for each region is also picked with fixed ids in code,
+    and it should come from the JSON like everything else. Beyond that:
+  </p>
+  <ul>
+    <li>Add more region types, since seven seed points currently share only three.</li>
+    <li>Add padding around each atlas tile to prevent edge bleeding if filtering is ever turned on.</li>
+  </ul>
 
-  </div>
-
-  <div class="lab-post-back">
-    <a href="../laboratory.html" class="btn-secondary">← Back to Laboratory</a>
-    <a href="https://github.com/Bearium-BB/ProjectIsle" class="btn-secondary" target="_blank" rel="noopener">View the code on GitHub</a>
-  </div>
-</article>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <div class="lightbox-inner" id="lightbox-inner">
-    <button class="lightbox-close" id="lightbox-close">&#x2715; Close</button>
-    <img id="lightbox-img" src="" alt="" style="display:none" />
-    <div class="lightbox-video" id="lightbox-video" style="display:none">
-      <iframe id="lightbox-iframe" src="" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
-    </div>
-  </div>
 </div>
 
-<!-- ═══ FOOTER ══════════════════════════════════════════ -->
-<footer>
-  <span class="footer-logo">Brett Bowley</span>
-  <span class="footer-copy">© 2026 Brett Bowley. All rights reserved.</span>
-</footer>
-
-<script src="../js/project.js"></script>
-<script>
-  // Fade-in observer (mirrors main site)
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
-
+<script src="data/lab.js"></script>
+<script src="js/site.js"></script>
 </body>
 </html>

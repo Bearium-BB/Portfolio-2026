@@ -7,21 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@300;400;600;700;800&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body data-page="listing">
 
-<!-- ═══ NAV ═════════════════════════════════════════ -->
-<nav>
-  <a href="index.html" class="nav-logo">Brett Bowley<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="projects.html">Projects</a></li>
-    <li><a href="laboratory.html">Lab</a></li>
-    <li><a href="index.html#about">About</a></li>
-    <li><a href="index.html#contact">Contact</a></li>
-    <li><a href="files/Brett_Bowley_Resume.pdf" class="resume-btn" target="_blank" rel="noopener">Resume</a></li>
-  </ul>
-</nav>
+<!-- The nav bar and footer are added by js/site.js (same on every page). -->
 
-<!-- ═══ ALL ALL PROJECTS ═══════════════════════════════ -->
 <section id="projects" class="listing-page">
   <div class="section-header fade-in">
     <a href="index.html#projects" class="page-back">← Back to home</a>
@@ -30,27 +19,11 @@
     <p class="section-desc">Every game project I&#39;ve worked on, from jam games to full prototypes.</p>
   </div>
 
-  <!-- Cards come from data/projectsList.js — add new projects there -->
+  <!-- Cards come from data/projects.js — add new projects there -->
   <div class="projects-grid" data-cards="projects"></div>
 </section>
 
-<!-- ═══ FOOTER ══════════════════════════════════════════ -->
-<footer>
-  <span class="footer-logo">Brett Bowley</span>
-  <span class="footer-copy">© 2026 Brett Bowley. All rights reserved.</span>
-</footer>
-
-<script src="data/projectsList.js"></script>
-<script src="js/cards.js"></script>
-<script>
-  // Fade-in observer (mirrors main site)
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
-
+<script src="data/projects.js"></script>
+<script src="js/site.js"></script>
 </body>
 </html>
