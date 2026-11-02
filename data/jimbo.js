@@ -55,4 +55,5 @@ const PROJECT_DATA = {
   // ── Links ─────────────────────────────────────────
   itchUrl:    'https://bearium-ii.itch.io/jimbo-remember-to-hydrate',
   downloadUrl:'https://bearium-ii.itch.io/jimbo-remember-to-hydrate',
+  githubUrl:   'https://github.com/Bearium-BB/WINNIPEG-GAME-JAM-2026',
 };

@@ -60,4 +60,5 @@ const PROJECT_DATA = {
   // ── Links ─────────────────────────────────────────
   itchUrl:    'https://bearium-ii.itch.io/penrose-tower',
   downloadUrl:'https://bearium-ii.itch.io/penrose-tower',
+  githubUrl:   'https://github.com/Claudia200113/GameStudioA3',
 };

@@ -59,26 +59,139 @@
     </div>
 
     <!-- ═══ MY CONTRIBUTION ═══════════════════════════════
-         Plain HTML — put anything you like inside
-         <div class="proj-contrib-body">: paragraphs <p>, headings <h3>,
-         images <img>, lists <ul>, etc. in any order.
+         HOW TO EDIT: type your own text between the two
+         "TYPE BELOW" markers further down. Delete the example
+         text and write whatever you like, using these tags:
+           <p>Your paragraph text</p>
+           <h3>A heading</h3>
+           <img src="../images/yourPicture.png" alt="Describe it" />   (put the file in the images folder)
+           Image size: add class="small", class="medium" or class="large"
+             e.g. <img class="medium" src="..." alt="..." />
+             or an exact size: <img width="400" src="..." alt="..." />  (pixels, or "50%")
+           <ul><li>A bullet point</li></ul>
+         Add as many as you want, in any order.
          Images open full size when clicked.
          ════════════════════════════════════════════════════ -->
     <div class="proj-contrib fade-in">
       <div class="proj-section-label">My Contribution</div>
       <div class="proj-contrib-body">
 
+        <!-- ▼▼▼ TYPE BELOW ▼▼▼ -->
+
+        <!-- HOW TO ADD A GIF / VIDEO:
+             1. Put the file in the images folder (e.g. images/vvv/laser.gif)
+             2. Replace the matching <div class="media-slot"> line with ONE of:
+                  GIF / image:  <img class="medium" src="../images/vvv/laser.gif" alt="Laser material" />
+                  MP4 video:    <video class="medium" src="../images/vvv/laser.mp4" autoplay loop muted playsinline></video>
+             Sizes: small / medium / large (same as images). -->
+
+        <h3>Overview</h3>
+        <ul>
+          <li><strong>Role:</strong> Gameplay &amp; UI programmer, plus VFX, on a team of 5.</li>
+          <li><strong>Engine:</strong> Unreal Engine, built entirely in Blueprints.</li>
+          <li><strong>Duration:</strong> about 2 months, 2026.</li>
+        </ul>
         <p>
-          Example text — describe what you worked on and what you were responsible
-          for. Replace everything in this box with your own content.
+          I worked across three areas: the logic behind the Gambling Gun, the enemy attack behavior and the UI that
+          ties them together, and the visual effects that make it all feel good to play. Here's what I built and
+          the problems I ran into along the way.
         </p>
 
-        <img src="https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcyMi5wbmc=/original/1FCSuR.png" alt="Example screenshot" />
+        <h3>Gambling Gun</h3>
+        <p>
+          The Gambling Gun is built around a projectile system that I wrote from scratch. Holding the fire button
+          checks a fire rate, and a multi-gate cycles through the list of projectile types. The default shot fires
+          fast, while the stronger projectiles use longer delays to balance them. A "do once" gate blocks the gun
+          until that delay has finished. It isn't the nicest solution, and a timer would be cleaner, but it works
+          and was quick to build.
+        </p>
+        <p>
+          The gun's gamble comes from the shoulder buttons. <strong>RB</strong> picks a random special bullet
+          for about two seconds before a cooldown resets it, and <strong>LB</strong> applies a random modifier to the
+          character that is removed again when the cooldown ends.
+        </p>
+        <div class="media-slot">GIF: gambling gun firing</div>
+        <p>
+          <strong>Problem solved:</strong> switching weapons has to remove the modifier from the character, but a
+          component can only be deleted by the object that owns it. So the gun casts to the player and tells the
+          character to delete its own component. I also tried making the projectiles script objects to keep the
+          gun tidy, but those can't spawn actors, so I went back to spawning actors directly.
+        </p>
+
+        <h3>Enemy AI</h3>
+        <p>
+          For the enemies I built the attack task inside the behavior tree. When an enemy gets close to the player,
+          it sets a blackboard value that stops its movement and plays an attack animation, which is only a
+          telegraph and doesn't hurt. About a second later it spawns a real overlap sphere, so the player has time
+          to dodge, and anyone still inside takes damage while the screen shakes as the ball explodes.
+        </p>
+        <p>
+          The enemies use custom collision channels so overlaps only check against the right object types, which
+          keeps them cheap. The checks run as a chain of fail states, a pattern a teammate suggested. It works for
+          a short project, but it would turn into a mess as it grew, and I'd replace it with a controlling boolean
+          next time.
+        </p>
+        <div class="media-slot">GIF: enemy attack</div>
+
+        <h3>UI Programming</h3>
+        <p>
+          I wired up the HUD, main menu and pause menu. The buttons use event dispatchers, so the menus just
+          subscribe to them, and play and quit trigger a short animation before the scene changes. The UI for each
+          weapon is chosen by a UI switcher that loads the right widget based on the weapon the player is holding,
+          and an event dispatcher fires whenever the weapon changes so anything in the game can react.
+        </p>
+        <p>
+          The Gambling Gun's own UI is a set of percentage bars. They're driven by events instead of reading from the
+          gun directly, so the widgets only need a value between zero and one and don't depend on the weapon. The
+          same value also fills a reticle on the character, as a second piece of visual feedback.
+        </p>
+        <ul>
+          <li><strong>Custom widgets:</strong> a button and a rich text block that other widgets reuse.</li>
+          <li><strong>Teammates:</strong> the visual polish, the checkbox and the menu animation were done by others.</li>
+        </ul>
+        <div class="media-slot">GIF: cooldown bars / menu</div>
+
+        <h3>Portal Sequence</h3>
+        <p>
+          When you clear a room, a portal sequence plays: the screen shakes, lightning bursts out, a shockwave
+          expands and three pillars rise and bob up and down, glowing ten times brighter to light up the room.
+          The sequence is built from timelines in a Blueprint.
+        </p>
+        <p>
+          <strong>Problem solved:</strong> Niagara effects wouldn't spawn from inside a for loop, so the lightning
+          is generated by a looping timer event that spawns it a bit at a time and a second timer that stops it.
+        </p>
+        <div class="media-slot">GIF: portal opening</div>
+
+        <h3>VFX &amp; Materials</h3>
+        <p>
+          This was my first time doing VFX, so I started with two reusable materials: you give them any effect
+          texture and they mask it, recolor it and control how brightly it glows. One drives opacity for softer
+          edges, the other uses a mask.
+        </p>
+        <p>
+          From there I built the lightning, adapting a free pack from the Fab store. It distorts a texture's UVs with
+          layered displacement and uses a color ramp to give the core and the outer glow different colors. The laser
+          for a teammate's weapon scrolls two textures through each other and reads its color from a curve, so the
+          beam can fade from a dark outline, to cyan, to yellow. The beam's length and width are parameters, so the
+          same material works at any size. The shockwaves use a custom hollow cylinder mesh, so you never see the cap,
+          with timelines controlling scale and fade.
+        </p>
+        <div class="media-slot">GIF: material examples (mask, lightning, laser)</div>
+
+        <h3>Art &amp; Lighting</h3>
+        <p>
+          I modeled the original ghost enemy, which teammates then re-UV'd and optimized. I also lit the scenes and
+          set up the ground's normal, specular and metallic maps. The game looked flat before, and the lighting
+          and VFX are a big part of what gives it atmosphere now.
+        </p>
+        <div class="media-slot">GIF: before / after lighting</div>
 
         <p>
-          You can keep writing after an image, add another image, a heading,
-          or a list — whatever you need.
+          Full walkthrough video: <a href="#" target="_blank" rel="noopener">add YouTube link here</a>
         </p>
+
+        <!-- ▲▲▲ TYPE ABOVE ▲▲▲ -->
 
       </div>
     </div>
@@ -104,6 +217,11 @@
     <a id="proj-itch-btn" href="#" target="_blank" rel="noopener" class="proj-itch-btn">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 6.668v1.002c0 1.255.672 2.36 1.69 3.025v8.972c0 .666 1.285 1.333 3.21 1.333h14.2c1.925 0 3.21-.667 3.21-1.333V10.695c1.018-.665 1.69-1.77 1.69-3.025V6.668c-.02-2.34-2.08-4.707-3.13-5.33C19.88.718 14.353 0 12 0 9.648 0 4.12.718 3.13 1.338zM12 2c2.443 0 7.82.714 8.79 1.272.83.477 2.195 2.255 2.21 3.395V7.67c0 .944-.854 1.63-1.69 1.63H2.69C1.854 9.3 1 8.614 1 7.67V6.667c.015-1.14 1.38-2.918 2.21-3.395C4.18 2.714 9.557 2 12 2zm7 8c.172 0 .343-.015.51-.04v8.707c-.287.117-.93.333-1.81.333H6.3c-.88 0-1.523-.216-1.81-.333V9.96c.167.025.338.04.51.04h14zM9 12v2h6v-2H9z"/></svg>
       View on itch.io
+    </a>
+
+    <a id="proj-github-btn" href="#" target="_blank" rel="noopener" class="proj-itch-btn" style="display:none">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      View on GitHub
     </a>
 
     <div class="proj-info-table" id="proj-info-table"></div>

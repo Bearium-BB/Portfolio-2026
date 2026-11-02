@@ -49,6 +49,13 @@ if (typeof PROJECT_DATA !== 'undefined') (function render(d) {
     itchBtn.style.display = 'none';
   }
 
+  // GitHub button — only shown when the project has githubUrl
+  const ghBtn = document.getElementById('proj-github-btn');
+  if (ghBtn && d.githubUrl) {
+    ghBtn.href = d.githubUrl;
+    ghBtn.style.display = '';
+  }
+
   // Description
   const descEl = document.getElementById('proj-description');
   (d.description || []).forEach(p => {

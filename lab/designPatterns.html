@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testing New Design Patterns | Brett Bowley</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@300;400;600;700;800&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/project.css">
+</head>
+<body>
+
+<!-- ═══ NAV ═════════════════════════════════════════ -->
+<nav>
+  <a href="../index.html" class="nav-logo">Brett Bowley<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="../projects.html">Projects</a></li>
+    <li><a href="../laboratory.html">Lab</a></li>
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+    <li><a href="../files/Brett_Bowley_Resume.pdf" class="resume-btn" target="_blank" rel="noopener">Resume</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO BANNER ══════════════════════════════════ -->
+<section class="proj-hero">
+  <img class="proj-hero-img" src="../images/lab/designPatterns.svg" alt="Design patterns diagram" />
+  <div class="proj-hero-overlay"></div>
+  <div class="proj-hero-content">
+    <div class="proj-breadcrumb">
+      <a href="../index.html">Home</a>
+      <span>/</span>
+      <a href="../laboratory.html">Laboratory</a>
+      <span>/</span>
+      <span>Testing New Design Patterns</span>
+    </div>
+    <div class="hero-eyebrow">Unity</div>
+    <h1><span class="name">Testing New Design Patterns</span></h1>
+    <div class="proj-hero-meta">
+      <span class="proj-badge jam">Architecture</span>
+      <span class="proj-badge jam">MVP</span>
+      <span class="proj-badge jam">MVVM</span>
+      <span class="proj-badge jam">Dependency Injection</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ POST ═════════════════════════════════════════
+     Plain HTML — write anything inside <div class="lab-post-content">:
+       <h2>Heading</h2>     <p>Paragraph</p>     <ul><li>List</li></ul>
+       <img src="..." alt="..." />   (click opens full size)
+       Image size: <img class="small|medium|large" ...> or <img width="400" ...>
+       <figure><img src="..." alt="..." /><figcaption>Caption</figcaption></figure>
+       <div class="lab-video"><iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe></div>
+       <pre><code>code here</code></pre>
+       Placeholder for a GIF: <div class="media-slot">GIF: what it shows</div>
+       (replace with <img class="medium" src="../images/lab/file.gif" alt="..." />)
+     To make a new post: copy this file, edit it, then add an entry
+     in data/labList.js with url pointing to the new file.
+     ════════════════════════════════════════════════════ -->
+<article class="lab-post">
+  <div class="lab-post-content fade-in">
+    <p class="github-line"><a href="https://github.com/Bearium-BB/Testing_New_Design_Patterns" class="btn-secondary" target="_blank" rel="noopener">View the code on GitHub</a></p>
+
+    <h2>The Experiment</h2>
+    <p>
+      This lab is about one question: how far can a Unity project scale if you refuse to use Singletons? I tried
+      three things together in Unity 2022.3: the MVP pattern, the MVVM pattern, and a small Object Resolver I wrote
+      to handle dependency injection. It's an architecture test, not a finished game.
+    </p>
+
+    <h2>The Problem with Singletons</h2>
+    <p>
+      Most Unity projects reach for <code>Manager.Instance</code> everywhere. It's quick, but every script ends up
+      hard-wired to every other one, which makes testing, swapping systems and growing the project harder over
+      time. I wanted to see what a more scalable setup looks like if you have the time to build it properly.
+    </p>
+    <img class="large" src="../images/lab/designPatterns.svg" alt="Architecture diagram: the Object Resolver injects into the Presenter and ViewModel, which both sit on one Model" />
+
+    <h2>The Object Resolver</h2>
+    <p>
+      The resolver replaces the Singleton. A Bootstrap script creates it when the scene starts, registers the
+      services, and then goes through every MonoBehaviour in the scene and fills in any field marked
+      <code>[Inject]</code> using reflection and the field's type. A script just asks for an interface like
+      <code>IUIService</code> and never needs to know who provides it, so swapping a service means registering a
+      different class and nothing that uses it has to change. Objects spawned later can be injected with
+      <code>InjectIntoInstance</code>.
+    </p>
+<pre><code>public class PlayerUIView : MonoBehaviour
+{
+    [Inject] private IUIService service;   // filled by the resolver
+
+    public void UpdateMagnitude(float magnitude)
+    {
+        service.SetText("PLAYER_UI", "magnitudeMVVM", magnitude.ToString());
+    }
+}</code></pre>
+    <div class="media-slot">GIF: scene running with injected UI</div>
+
+    <h2>MVP</h2>
+    <p>
+      In the MVP setup the model is a plain C# class that holds data and rules with no Unity code in it. The views
+      are MonoBehaviours hidden behind interfaces like <code>IPlayerMovementView</code>, and a presenter sits
+      between them. When the player moves, the view raises an event, the presenter asks the model for the result,
+      and then tells each view what to show. A small installer creates the model and presenter and connects them, so
+      there's one place to look when something isn't wired up.
+    </p>
+<pre><code>private void HandleMoveInput(Vector2 input)
+{
+    Vector3 velocity = playerModel.CalculateMovement(input);
+    playerMovementView.ApplyMovement(velocity);
+    playerMovementUIView.UpdateUI(velocity);
+    playerMovementDebugView.SentDebug(velocity);
+}</code></pre>
+
+    <h2>MVVM</h2>
+    <p>
+      MVVM flips who is in control. Instead of a presenter pushing data into views, the views subscribe to values
+      on a ViewModel and update themselves. The glue is a small generic class called <code>ObservableProperty</code>
+      that fires an event only when its value actually changes. The ViewModel listens to the model and turns its
+      data into something a screen can use, such as the speed of the player from its velocity.
+    </p>
+<pre><code>public PlayerViewModel(PlayerModel playerModel)
+{
+    this.playerModel = playerModel;
+    playerModel.velocity.OnValueChanged += v => magnitude.Value = v.magnitude;
+}</code></pre>
+
+    <h2>MVP vs MVVM</h2>
+    <p>
+      I ended up using both on the same player model, and they suited different jobs. MVP worked best for gameplay
+      flow, because the presenter controls the order things happen in. MVVM worked best for UI, because adding a
+      new readout only needs one new binding and no changes to a presenter. Since they share one model, the same
+      player data drives both the movement and the screen.
+    </p>
+
+    <h2>Combat Actions (Stress Test)</h2>
+    <p>
+      To push the setup further I built an ability system on top of it. Each ability, like Vine, Steam Cloud and
+      Water Surge, is a <code>ScriptableObject</code>, with a matching data MonoBehaviour that carries the runtime
+      state such as the Rigidbody and mouse position. The player picks two spell elements and the model returns the
+      combined ability, and that flow runs through both the MVP and MVVM versions.
+    </p>
+    <div class="media-slot">GIF: combining two elements into an ability</div>
+
+    <h2>What I Learned</h2>
+    <p>
+      Decoupling paid off. I could add or swap views without touching gameplay code, which is exactly what I was
+      hoping for. The cost is setup: the installers and interfaces are real overhead and probably too much for a
+      small project. The resolver also uses reflection and scans every MonoBehaviour at startup, which is fine in
+      this scene but would need caching in a big one.
+    </p>
+
+    <h2>What I'd Improve Next</h2>
+    <p>
+      The resolver defines Singleton, SceneScoped and Transient lifetimes, but they aren't enforced yet, and pooled
+      objects are still a TODO. I'd also make failed injections more explicit and have the bindings unsubscribe from
+      events when views are destroyed.
+    </p>
+
+  </div>
+
+  <div class="lab-post-back">
+    <a href="../laboratory.html" class="btn-secondary">← Back to Laboratory</a>
+    <a href="https://github.com/Bearium-BB/Testing_New_Design_Patterns" class="btn-secondary" target="_blank" rel="noopener">View the code on GitHub</a>
+  </div>
+</article>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner" id="lightbox-inner">
+    <button class="lightbox-close" id="lightbox-close">&#x2715; Close</button>
+    <img id="lightbox-img" src="" alt="" style="display:none" />
+    <div class="lightbox-video" id="lightbox-video" style="display:none">
+      <iframe id="lightbox-iframe" src="" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <span class="footer-logo">Brett Bowley</span>
+  <span class="footer-copy">© 2026 Brett Bowley. All rights reserved.</span>
+</footer>
+
+<script src="../js/project.js"></script>
+<script>
+  // Fade-in observer (mirrors main site)
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

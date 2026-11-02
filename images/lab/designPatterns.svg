@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" font-family="Oxanium, Segoe UI, sans-serif">
+  <rect width="1280" height="720" fill="#050508"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#4779A5"/>
+    </marker>
+  </defs>
+
+  <text x="640" y="70" text-anchor="middle" fill="#8CCBFF" font-size="40" font-weight="700">Beyond the Singleton</text>
+  <text x="640" y="104" text-anchor="middle" fill="#71849B" font-size="20">MVP + MVVM + Object Resolver</text>
+
+  <rect x="440" y="150" width="400" height="90" rx="10" fill="#172B40" stroke="#63D6D0" stroke-width="2"/>
+  <text x="640" y="190" text-anchor="middle" fill="#63D6D0" font-size="26" font-weight="700">Object Resolver</text>
+  <text x="640" y="220" text-anchor="middle" fill="#A9D5FF" font-size="18">[Inject] fields filled by type</text>
+
+  <rect x="490" y="380" width="300" height="90" rx="10" fill="#172B40" stroke="#4779A5" stroke-width="2"/>
+  <text x="640" y="420" text-anchor="middle" fill="#FFFFFF" font-size="26" font-weight="700">Model</text>
+  <text x="640" y="450" text-anchor="middle" fill="#A9D5FF" font-size="18">ObservableProperty&lt;T&gt;</text>
+
+  <rect x="90" y="380" width="300" height="90" rx="10" fill="#172B40" stroke="#4779A5" stroke-width="2"/>
+  <text x="240" y="420" text-anchor="middle" fill="#FFFFFF" font-size="26" font-weight="700">Presenter (MVP)</text>
+  <text x="240" y="450" text-anchor="middle" fill="#A9D5FF" font-size="18">talks to IView interfaces</text>
+
+  <rect x="890" y="380" width="300" height="90" rx="10" fill="#172B40" stroke="#4779A5" stroke-width="2"/>
+  <text x="1040" y="420" text-anchor="middle" fill="#FFFFFF" font-size="26" font-weight="700">ViewModel (MVVM)</text>
+  <text x="1040" y="450" text-anchor="middle" fill="#A9D5FF" font-size="18">views bind to its values</text>
+
+  <rect x="90" y="580" width="300" height="70" rx="10" fill="#101020" stroke="#4779A5" stroke-width="2"/>
+  <text x="240" y="624" text-anchor="middle" fill="#C5D0DF" font-size="22">Views (MonoBehaviours)</text>
+  <rect x="890" y="580" width="300" height="70" rx="10" fill="#101020" stroke="#4779A5" stroke-width="2"/>
+  <text x="1040" y="624" text-anchor="middle" fill="#C5D0DF" font-size="22">UI Views (bound)</text>
+
+  <line x1="560" y1="240" x2="300" y2="378" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)" stroke-dasharray="6 6"/>
+  <line x1="720" y1="240" x2="980" y2="378" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)" stroke-dasharray="6 6"/>
+  <line x1="390" y1="425" x2="488" y2="425" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="890" y1="425" x2="792" y2="425" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="240" y1="580" x2="240" y2="472" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="1040" y1="472" x2="1040" y2="578" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+</svg>

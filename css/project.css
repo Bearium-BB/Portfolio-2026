@@ -72,10 +72,9 @@
     }
 
     .proj-hero-content h1 .name {
-      background: linear-gradient(135deg, #fff 30%, var(--accent3));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      background: none;
+      -webkit-text-fill-color: #fff;
+      color: #fff;
     }
 
     .proj-hero-meta {
@@ -110,7 +109,7 @@
     .proj-badge.jam {
       color: var(--accent3);
       border-color: var(--border);
-      background: rgba(26,86,219,0.1);
+      background: rgba(52,127,203,0.1);
     }
 
     /* Body layout */
@@ -129,7 +128,7 @@
 
     .proj-section-label {
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 1.1rem;
       color: var(--accent3);
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -155,17 +154,12 @@
       margin-bottom: 2.5rem;
     }
 
-    /* My Contribution — free-form HTML box */
+    /* My Contribution — free-form HTML area (no box) */
     .proj-contrib {
       margin-bottom: 2.5rem;
     }
 
     .proj-contrib-body {
-      background: var(--surface);
-      border: 1px solid var(--border2);
-      border-left: 3px solid var(--accent);
-      border-radius: 8px;
-      padding: 1.5rem 1.75rem;
       color: var(--text2);
       line-height: 1.9;
     }
@@ -178,15 +172,18 @@
     .proj-contrib-body h3,
     .lab-post-content h3 {
       font-family: 'Oxanium', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.4rem;
       font-weight: 600;
-      color: var(--text);
+      color: var(--heading-secondary);
     }
 
     .proj-contrib-body ul,
     .proj-contrib-body ol,
     .lab-post-content ul,
     .lab-post-content ol { padding-left: 1.25rem; }
+
+    .proj-contrib-body strong,
+    .lab-post-content strong { color: var(--accent2); font-weight: 600; }
 
     .proj-contrib-body a,
     .lab-post-content a { color: var(--cyan); }
@@ -199,6 +196,51 @@
       border: 1px solid var(--border2);
       cursor: zoom-in;
       transition: border-color 0.2s;
+    }
+
+    /* Image sizes — add class="small" / "medium" / "large" to an <img>.
+       Or set an exact size with width="400" (pixels) or width="50%". */
+    .proj-contrib-body img,
+    .lab-post-content img { height: auto; }
+
+    .proj-contrib-body img.small,
+    .lab-post-content img.small   { width: 280px; }
+
+    .proj-contrib-body img.medium,
+    .lab-post-content img.medium  { width: 480px; }
+
+    .proj-contrib-body img.large,
+    .lab-post-content img.large   { width: 100%; }
+
+    /* <video> clips (autoplay loop muted) — same sizes as images */
+    .proj-contrib-body video,
+    .lab-post-content video {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      border: 1px solid var(--border2);
+    }
+
+    .proj-contrib-body video.small  { width: 280px; }
+    .proj-contrib-body video.medium { width: 480px; }
+    .proj-contrib-body video.large  { width: 100%; }
+
+    /* Placeholder box — replace with an <img> or <video> */
+    .media-slot {
+      max-width: 480px;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      border: 1px dashed var(--border2);
+      border-radius: 6px;
+      background: var(--bg3);
+      color: var(--text3);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
     }
 
     .proj-contrib-body img:hover,
@@ -416,22 +458,21 @@
       font-weight: 700;
       font-size: 0.95rem;
       padding: 0.95rem 1.5rem;
-      background: var(--accent);
-      color: #fff;
-      border: none;
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+      border: 1px solid var(--btn-primary-bg);
       border-radius: 8px;
       cursor: pointer;
       text-decoration: none;
       letter-spacing: 0.06em;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-      box-shadow: 0 4px 24px rgba(26,86,219,0.45);
+      transition: background 0.2s, color 0.2s;
       margin-bottom: 1.25rem;
     }
 
     .proj-download-btn:hover {
-      background: var(--accent2);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(26,86,219,0.55);
+      background: var(--btn-hover-bg);
+      border-color: var(--btn-hover-bg);
+      color: var(--btn-hover-text);
     }
 
     .proj-itch-btn {
@@ -443,9 +484,9 @@
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.78rem;
       padding: 0.7rem 1.5rem;
-      background: transparent;
-      color: var(--text2);
-      border: 1px solid var(--border);
+      background: var(--btn-secondary-bg);
+      color: var(--btn-secondary-text);
+      border: 1px solid var(--btn-secondary-border);
       border-radius: 8px;
       cursor: pointer;
       text-decoration: none;
@@ -455,9 +496,9 @@
     }
 
     .proj-itch-btn:hover {
-      border-color: var(--accent2);
-      color: var(--accent3);
-      background: rgba(26,86,219,0.08);
+      border-color: var(--btn-hover-bg);
+      color: var(--btn-hover-text);
+      background: var(--btn-hover-bg);
     }
 
     /* Info table */
@@ -531,11 +572,11 @@
     .lightbox-close {
       font-family: 'Share Tech Mono', monospace;
       font-size: 0.72rem;
-      color: var(--text2);
+      color: var(--btn-secondary-text);
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--btn-secondary-bg);
+      border: 1px solid var(--btn-secondary-border);
       border-radius: 4px;
       padding: 0.3rem 0.8rem;
       cursor: pointer;
@@ -543,15 +584,16 @@
     }
 
     .lightbox-close:hover {
-      color: var(--accent3);
-      border-color: var(--accent);
+      color: var(--btn-hover-text);
+      background: var(--btn-hover-bg);
+      border-color: var(--btn-hover-bg);
     }
 
     .lightbox-inner img {
       max-width: 90vw;
       max-height: 82vh;
       border-radius: 8px;
-      box-shadow: 0 0 80px rgba(26,86,219,0.35);
+      border: 1px solid var(--border);
       display: block;
     }
 
@@ -561,7 +603,7 @@
       aspect-ratio: 16/9;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 0 80px rgba(26,86,219,0.35);
+      border: 1px solid var(--border);
     }
 
     .lightbox-video iframe {
@@ -608,4 +650,31 @@
     @media (max-width: 600px) {
       .proj-hero { min-height: 55vh; }
       .proj-screenshots { grid-template-columns: 1fr; }
+    }
+
+    /* Code snippets in lab posts */
+    .lab-post-content code {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9em;
+      color: var(--accent-teal);
+      background: var(--surface);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+    }
+
+    .lab-post-content pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      overflow-x: auto;
+      margin-bottom: 1.1rem;
+    }
+
+    .lab-post-content pre code {
+      background: none;
+      padding: 0;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--text-body);
     }
