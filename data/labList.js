@@ -3,13 +3,13 @@
    ═══════════════════════════════════════════════════
    Add an experiment by copying one { ... } block.
      featured: true  → also shown on the home page
-     url:             the lab post page — copy labGlobalIllumination.html,
+     url:             the lab post page — copy lab/globalIllumination.html,
                       edit it, and point url at the copy
    ═══════════════════════════════════════════════════ */
 const LAB_POSTS = [
   {
     title:    'Global Illumination',
-    url:      'labGlobalIllumination.html',
+    url:      'lab/globalIllumination.html',
     image:    'https://i.ytimg.com/vi/zVScwBOSLZg/hqdefault.jpg',
     label:    'Godot',
     desc:     'Experimenting with real-time global illumination and how far it can be pushed in Godot.',
@@ -18,7 +18,7 @@ const LAB_POSTS = [
   },
   {
     title:    'Car Controller',
-    url:      'labCarController.html',
+    url:      'lab/carController.html',
     image:    'https://i.ytimg.com/vi/2tSbSua5xsc/hqdefault.jpg',
     label:    'Godot',
     desc:     'Short description of the experiment goes here.',
@@ -27,7 +27,7 @@ const LAB_POSTS = [
   },
   {
     title:    'FPS Game',
-    url:      'labFPSGame.html',
+    url:      'lab/fpsGame.html',
     image:    'https://i.ytimg.com/vi/wa8b-pEOwQ0/hqdefault.jpg',
     label:    'Godot',
     desc:     'Short description of the experiment goes here.',
@@ -36,7 +36,7 @@ const LAB_POSTS = [
   },
   {
     title:    'Tiny Knight',
-    url:      'labTinyKnight.html',
+    url:      'lab/tinyKnight.html',
     image:    'https://i.ytimg.com/vi/X1mwOwS9FIY/hqdefault.jpg',
     label:    'Godot',
     desc:     'Short description of the experiment goes here.',
@@ -44,7 +44,7 @@ const LAB_POSTS = [
   },
   {
     title:    'Football Soccer Game',
-    url:      'labFootballSoccerGame.html',
+    url:      'lab/footballSoccerGame.html',
     image:    'https://i.ytimg.com/vi/0bgYC3ry3Zs/hqdefault.jpg',
     label:    'Unity',
     desc:     'Short description of the experiment goes here.',
@@ -52,7 +52,7 @@ const LAB_POSTS = [
   },
   {
     title:    'Third-Person Shooter',
-    url:      'labThirdPersonShooter.html',
+    url:      'lab/thirdPersonShooter.html',
     image:    'https://i.ytimg.com/vi/5SrqXDmgO4k/hqdefault.jpg',
     label:    'Unity',
     desc:     'Short description of the experiment goes here.',
@@ -60,7 +60,7 @@ const LAB_POSTS = [
   },
   {
     title:    'Action Platform Game',
-    url:      'labActionPlatformGame.html',
+    url:      'lab/actionPlatformGame.html',
     image:    'https://i.ytimg.com/vi/H-3wmRPnLu8/hqdefault.jpg',
     label:    'Unity',
     desc:     'Short description of the experiment goes here.',
@@ -68,7 +68,7 @@ const LAB_POSTS = [
   },
   {
     title:    'Open World Game',
-    url:      'labOpenWorldGame.html',
+    url:      'lab/openWorldGame.html',
     image:    'https://i.ytimg.com/vi/9FmgfJ92fWA/hqdefault.jpg',
     label:    'Unity',
     desc:     'Short description of the experiment goes here.',

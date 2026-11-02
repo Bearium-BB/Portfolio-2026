@@ -9,7 +9,7 @@
 const PROJECTS = [
   {
     title:    'Jimbo, Remember to Hydrate',
-    url:      'projectJimbo.html',
+    url:      'projects/jimbo.html',
     image:    'https://img.itch.zone/aW1nLzI2MzQ0Mjk4LnBuZw==/original/J97fvW.png',
     label:    'Prototype',
     desc:     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet tellus at lectus cursus, vitae vestibulum turpis gravida.',
@@ -19,7 +19,7 @@ const PROJECTS = [
   },
   {
     title:    'Penrose Tower',
-    url:      'projectPenroseTower.html',
+    url:      'projects/penroseTower.html',
     image:    'https://img.itch.zone/aW1nLzI1MDk1MTY5LnBuZw==/original/PU8AO3.png',
     label:    'Prototype',
     desc:     'Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Donec sollicitudin sapien ac lorem porta, sit amet dignissim odio.',
@@ -28,7 +28,7 @@ const PROJECTS = [
   },
   {
     title:    "Vicky's Vexing Vocation",
-    url:      'projectVickysVexingVocation.html',
+    url:      'projects/vickysVexingVocation.html',
     image:    'https://img.itch.zone/aW1nLzI2NzQ4NzM1LnBuZw==/original/I0aV2B.png',
     label:    'Sandbox',
     desc:     'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus fringilla tortor vitae elit gravida.',

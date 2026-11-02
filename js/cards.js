@@ -1,8 +1,8 @@
 /* ═══════════════════════════════════════════════════
    Card renderer — fills any element with data-cards="projects"
    or data-cards="lab". Add data-show="featured" to show only
-   items marked featured: true. Load after projectsList.js /
-   labList.js and before the fade-in observer.
+   items marked featured: true. Load after data/projectsList.js /
+   data/labList.js and before the fade-in observer.
    ═══════════════════════════════════════════════════ */
 function escapeHTML(str) {
   return String(str).replace(/[&<>"']/g, c => ({
