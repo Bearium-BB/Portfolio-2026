@@ -103,6 +103,7 @@ const ICONS = {
 function buildNav() {
   const home = PAGE === 'home';
   const links = [
+    ['Home',     home ? '#hero' : 'index.html'],
     ['Projects', home ? '#projects' : 'projects.html'],
     ['Lab',      home ? '#lab'      : 'laboratory.html'],
     ['About',    home ? '#about'    : 'index.html#about'],
