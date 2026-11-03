@@ -30,7 +30,7 @@
     <li><strong>Duration:</strong> three days, for the Winnipeg Game Jam 2026.</li>
   </ul>
 
-  <h3>What I Built</h3>
+  <h3>What We Built</h3>
   <p>
     Jimbo is a QWOP-like rage game inspired by Bennett Foddy, where you drag a dehydrated goblin to the sink.
     I was the only programmer, so all of the gameplay code was mine. The part I cared most about was the
@@ -38,13 +38,59 @@
     easy to understand in the first few seconds while still leaving a high skill ceiling for people who
     want to master them.
   </p>
+
+  <h3>Controlling the Hands</h3>
   <p>
-    I also built the grabbing system, which works on both dynamic objects that move and static ones that
-    don't, so the player can pull themselves across the level or throw things around using the same
-    controls. With only three days, I kept refining the difficulty through playtesting, adjusting the
-    challenge based on where people got stuck or gave up.
+    Each of Jimbo's hands is controlled on its own: one stick for each hand, plus a button per hand to raise it.
+    Instead of moving the hand directly, the stick picks a target point a short distance from the goblin's
+    center in the direction you're pushing, and the hand is pulled toward that point with a physics force.
+    Holding the raise button lifts the target upward. Because the hand is chasing a point rather than
+    snapping to it, it swings, overshoots and gets dragged around by whatever it's holding, which is where the
+    comedy and the frustration both come from.
   </p>
-  <div class="media-slot">GIF: Jimbo dragging himself with the grab system</div>
+  <p>
+    The pull is clamped to a maximum speed so a hand can't fling itself wildly across the level on its own.
+    Input goes through Unity's Input System, with left and right hands sharing one script that just
+    switches which set of actions it listens to.
+  </p>
+
+  <h3>The Grab System</h3>
+  <p>
+    Pressing a hand's grab button checks for anything within a small radius of the wrist. If there is something
+    to hold, the wrist is attached to it with a joint (a physics connection that locks two objects together), and
+    pressing the button again lets go. There are two kinds of things to grab. Static objects like walls and
+    ledges are tied to a fixed anchor in the world, so pulling on them drags Jimbo's body across the level.
+    Movable objects are tied to the object itself, so you can drag a box along or throw it around.
+  </p>
+  <p>
+    Each kind gets its own pull strength, and the hand goes back to a weaker pull when it lets go. Holding a
+    wall is strong and reliable, holding a loose object is heavy and sluggish, and a free hand is the weakest.
+    When both hands are holding on at the same time, the body also gets a single push forward in the
+    direction the head is facing, so locking on with both hands lets you haul yourself along instead of
+    only swinging.
+  </p>
+  <p>
+    <strong>Problem solved:</strong> the grab had to feel the same on a static wall and on a loose object, but the two
+    need to behave very differently. Giving each its own joint target and pull strength let one grab button
+    and one set of controls cover both, so the player never has to learn a second rule.
+  </p>
+
+  <h3>Support Scripts</h3>
+  <p>
+    I wrote a handful of small reusable scripts so the level could be put together in the editor without new code
+    each time. A timer, a trigger zone, a collision hook and a restart key each fire a Unity event, which can be
+    connected to things like a reset or a scene change. A scene loader handles level changes and quitting,
+    and the camera follows the goblin from above with a smoothed lerp. Objects also play impact sounds whose
+    volume scales with how hard they hit, with a little random pitch and a short cooldown so a pile of
+    colliding objects doesn't turn into noise.
+  </p>
+
+  <h3>What I'd Improve</h3>
+  <p>
+    The grab and pull strengths are numbers written directly into the code, so tuning them meant editing the
+    script each time. I'd move them into the inspector so they can be adjusted while the game is running. I'd
+    also tidy the hand script, since it grew quickly during the jam and still holds some leftover experiments.
+  </p>
 
 </div>
 

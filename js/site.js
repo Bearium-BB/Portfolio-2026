@@ -173,7 +173,7 @@ function statusBadgeHTML(status) {
   return badgeHTML(status, /released/i.test(status) ? 'released' : 'in-progress');
 }
 
-function heroHTML({ image, title, eyebrow, badges, parentText, parentLink }) {
+function heroHTML({ image, title, eyebrow, badges, parentText, parentLink, scrollHint }) {
   return `
     <section class="proj-hero">
       ${image ? `<img class="proj-hero-img" src="${esc(image)}" alt="${esc(title)} banner">` : ''}
@@ -188,6 +188,7 @@ function heroHTML({ image, title, eyebrow, badges, parentText, parentLink }) {
         <h1>${esc(title)}</h1>
         <div class="proj-hero-meta">${badges}</div>
       </div>
+      ${scrollHint ? '<div class="scroll-hint">SCROLL</div>' : ''}
     </section>`;
 }
 
@@ -359,10 +360,11 @@ function renderLabPage() {
       badges: list(post.tags).map(t => badgeHTML(t)).join(''),
       parentText: 'Laboratory',
       parentLink: 'laboratory.html',
+      scrollHint: true,
     })}
 
     <article class="lab-post">
-      ${github ? `<p class="lab-actions">${github}</p>` : ''}
+      ${github ? `<p class="lab-actions fade-in" data-late>${github}</p>` : ''}
       <div id="lab-post-slot"></div>
       <div class="lab-post-back">
         <a href="laboratory.html" class="btn-secondary">← Back to Laboratory</a>
@@ -385,48 +387,83 @@ function renderLabPage() {
 // Opens when you click a Media thumbnail or any picture in your writing.
 
 let lightbox = null;
+let gallery = [];        // the pictures / videos you can step through
+let galleryIndex = 0;
 
-function openLightbox(contentHTML) {
+function showLightboxItem() {
+  lightbox.querySelector('.lightbox-content').innerHTML = gallery[galleryIndex];
+  const many = gallery.length > 1;
+  lightbox.querySelectorAll('.lightbox-arrow').forEach(a => { a.hidden = !many; });
+  lightbox.querySelector('.lightbox-count').textContent = many ? `${galleryIndex + 1} / ${gallery.length}` : '';
+}
+
+// items = the HTML for each picture/video, start = which one to show first
+function openLightbox(items, start = 0) {
   if (!lightbox) {
     document.body.append(html(`
       <div class="lightbox">
+        <button type="button" class="lightbox-arrow lightbox-prev" aria-label="Previous">&#8249;</button>
         <div class="lightbox-inner">
           <button type="button" class="lightbox-close">&#x2715; Close</button>
           <div class="lightbox-content"></div>
+          <div class="lightbox-count"></div>
         </div>
+        <button type="button" class="lightbox-arrow lightbox-next" aria-label="Next">&#8250;</button>
       </div>`));
     lightbox = document.body.lastElementChild;
     lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
     lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    lightbox.querySelector('.lightbox-prev').addEventListener('click', () => stepLightbox(-1));
+    lightbox.querySelector('.lightbox-next').addEventListener('click', () => stepLightbox(1));
   }
-  lightbox.querySelector('.lightbox-content').innerHTML = contentHTML;
+  gallery = items;
+  galleryIndex = start;
+  showLightboxItem();
   lightbox.classList.add('open');
+}
+
+function stepLightbox(direction) {
+  if (gallery.length < 2) return;
+  galleryIndex = (galleryIndex + direction + gallery.length) % gallery.length;
+  showLightboxItem();   // replacing the content also stops a playing video
 }
 
 function closeLightbox() {
   if (!lightbox) return;
   lightbox.classList.remove('open');
   lightbox.querySelector('.lightbox-content').innerHTML = '';   // also stops a playing video
+  gallery = [];
+}
+
+function lightboxItemHTML(el) {
+  if (el.dataset.video) {
+    return `
+      <div class="lightbox-video">
+        <iframe src="https://www.youtube.com/embed/${el.dataset.video}?autoplay=1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>`;
+  }
+  if (el.dataset.image) return `<img src="${esc(el.dataset.image)}" alt="">`;
+  return `<img src="${esc(el.currentSrc || el.src)}" alt="${esc(el.alt)}">`;
 }
 
 function setupLightbox() {
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox || !lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') stepLightbox(-1);
+    if (e.key === 'ArrowRight') stepLightbox(1);
+  });
 
   document.addEventListener('click', e => {
-    const thumb = e.target.closest('.proj-media-thumb');
-    if (thumb && thumb.dataset.video) {
-      openLightbox(`
-        <div class="lightbox-video">
-          <iframe src="https://www.youtube.com/embed/${thumb.dataset.video}?autoplay=1"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
-        </div>`);
-    } else if (thumb) {
-      openLightbox(`<img src="${esc(thumb.dataset.image)}" alt="">`);
-    } else {
-      const picture = e.target.closest('.writing img');
-      if (picture) openLightbox(`<img src="${esc(picture.currentSrc || picture.src)}" alt="${esc(picture.alt)}">`);
-    }
+    // Media thumbnails step through that project's media; writing pictures through that post's pictures
+    const clicked = e.target.closest('.proj-media-thumb') || e.target.closest('.writing img');
+    if (!clicked) return;
+    const group = clicked.matches('.proj-media-thumb')
+      ? [...clicked.parentElement.querySelectorAll('.proj-media-thumb')]
+      : [...clicked.closest('.writing').querySelectorAll('img')];
+    openLightbox(group.map(lightboxItemHTML), group.indexOf(clicked));
   });
 }
 
@@ -506,15 +543,22 @@ function setupCopyEmail() {
 /* ─── Fade-in on scroll ─────────────────────────────────────── */
 
 function startFadeIns() {
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  const makeObserver = rootMargin => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin });
+    return observer;
+  };
+  const normal = makeObserver('0px');
+  // data-late: waits until it's well inside the screen, so it doesn't appear on load
+  const late = makeObserver('0px 0px -35% 0px');
+  document.querySelectorAll('.fade-in').forEach(el =>
+    (el.hasAttribute('data-late') ? late : normal).observe(el));
 }
 
 
