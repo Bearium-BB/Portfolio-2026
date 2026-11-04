@@ -90,6 +90,7 @@ const PROJECTS = [
       "A climb with no true end. No matter how high you ascend, the top always remains just out of reach. The game is an endless platformer, focusing on the perpetual climb about striving for the unattainable.",
     ],
     media: [
+      'https://www.youtube.com/watch?v=HbJN6QdtxdE',
       'https://img.itch.zone/aW1nLzI1MDk1MTY5LnBuZw==/original/PU8AO3.png',
       'https://img.itch.zone/aW1nLzI1MDk1MjY5LnBuZw==/original/7WPErG.png',
       'https://img.itch.zone/aW1nLzI1MDk1MzMzLnBuZw==/original/wQ75lh.png',
