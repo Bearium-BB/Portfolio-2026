@@ -23,24 +23,71 @@
      ════════════════════════════════════════════════════════════════ -->
 <div id="my-contribution">
 
+  <p><strong>At a glance:</strong> Solo developer. I built a complete VR rail shooter in Unity in two to three days: spline-based movement, dual-wield shooting, enemies and scoring, for Windows and Android.</p>
+
   <h3>Overview</h3>
   <ul>
-    <li><strong>Role:</strong> Solo developer.</li>
-    <li><strong>Engine:</strong> Unity 6 with its new VR system.</li>
+    <li><strong>Role:</strong> Solo developer. I designed and programmed the whole game.</li>
+    <li><strong>Engine:</strong> Unity 6, XR Interaction Toolkit and OpenXR.</li>
     <li><strong>Duration:</strong> a two to three day personal challenge.</li>
     <li><strong>Platforms:</strong> Windows and Android (standalone VR).</li>
   </ul>
-
-  <h3>What I Built</h3>
   <p>
-    Bear Catacombs was a personal challenge: make a complete, looping VR game in two to three days, with
-    polish and cohesion rather than just a rough prototype. You move through a linear, rail-style level and
-    shoot enemies as they appear, earning points for each one. At the end of a run you see your score, which is
-    there to make you want another go.
+    I set myself a challenge: build a complete VR game in two to three days that starts, plays and loops properly,
+    instead of stopping at a rough prototype. You ride through a catacomb on rails with a gun in each hand and
+    shoot 28 targets across three enemy types to earn your score. Everything gameplay-related is my code, and I
+    used asset packs for the art and sound so my time could go into making it feel finished.
+  </p>
+
+  <h3>Rail Movement</h3>
+  <p>
+    The player is carried along a path that I drew in the editor as a spline. I wrote a custom locomotion
+    provider for the XR Interaction Toolkit that moves the player along it at a set speed, so I could reshape
+    the route or change the pacing without touching code. Taking movement away also keeps the player's hands
+    free for aiming.
+  </p>
+
+  <h3>Shooting and Damage</h3>
+  <p>
+    Each controller holds a gun, so you dual-wield. Holding the trigger fires projectiles at a set rate, and
+    each shot raises an event that plays the muzzle flash and a sound with slightly randomised pitch, so a long
+    burst doesn't sound repetitive. Projectiles damage anything that implements one small interface, which
+    means any object can become shootable without changing the weapon code.
+  </p>
+
+  <h3>Enemies and Scoring</h3>
+  <p>
+    Each enemy takes two hits. When one dies it adds points to the score, shows a floating "10 POINTS" label that
+    turns to face the player, and fires an event that spawns its explosion effect and sound. I kept the
+    enemy code the same for all three types and set the points per enemy in the scene, so scoring could be tuned
+    without editing a script.
+  </p>
+
+  <h3>Built to Be Quick to Iterate</h3>
+  <p>
+    A short deadline meant I couldn't hard-code every moment of the level. Instead I wrote a few small, reusable
+    scripts that fire Unity events, which I then connected in the editor: a trigger that fires when the player
+    gets close, a script that eases an object to a target, and a spawner. They run the end of the level and the
+    menu, where you start, restart or quit by shooting a target.
   </p>
   <p>
-    I made some of the assets myself and used others from the Fab Store and the Unity Asset Store, so that the
-    time could go into getting the game to feel finished.
+    <strong>Problem solved:</strong> with only a few days, wiring each moment in code would have eaten the time I
+    needed for polish. Reusable event-driven pieces let me build and change the level quickly, and the same
+    pieces worked in several places.
+  </p>
+
+  <h3>What I Used From Others</h3>
+  <p>
+    The environment, weapon models, muzzle flash and sounds came from asset packs and free sound libraries, and
+    the VR rig started from Unity's VR template. The path-following and all of the gameplay scripts on top are
+    my own.
+  </p>
+
+  <h3>What I'd Improve</h3>
+  <p>
+    I'd pool the projectiles instead of creating and destroying one on every shot, since that adds up on a
+    standalone headset. I'd also switch fast projectiles to continuous collision detection or a raycast, so
+    a shot can't pass through a thin target.
   </p>
 
 </div>

@@ -23,10 +23,13 @@
      ════════════════════════════════════════════════════════════════ -->
 <div id="my-contribution">
 
+  <p><strong>At a glance:</strong> Solo developer. I built an asteroid-style arcade game in C++ with Raylib, with no game engine. I wrote the game loop, entity management, collisions, saucer AI and level progression myself.</p>
+
   <h3>Overview</h3>
   <ul>
     <li><strong>Role:</strong> Solo developer.</li>
-    <li><strong>Engine:</strong> Raylib.</li>
+    <li><strong>Language:</strong> C++, with the Raylib library for windowing, drawing and audio.</li>
+    <li><strong>Duration:</strong> about five weeks, off and on (February to March 2026).</li>
     <li><strong>Platform:</strong> Windows.</li>
   </ul>
 
@@ -34,7 +37,60 @@
   <p>
     Against The Curve is my take on the classic asteroid-style arcade game. You survive waves of incoming
     asteroids and hostile saucers, and the saucers shoot back, so every encounter is a test of reflexes and
-    precision. The difficulty keeps rising with no cap, so the question is how long you can last.
+    precision. The difficulty keeps rising with no cap, so the question is how long you can last. Raylib handles
+    the window, drawing, input and audio, so everything else in the game is my own C++ code.
+  </p>
+
+  <h3>How It's Structured</h3>
+  <p>
+    The player, asteroids, bullets and saucers all inherit from one small <code>Actor</code> base class that holds
+    a position and a velocity. Each kind of object has a manager class that owns its list and handles updating and
+    drawing it, and one <code>GameMode</code> class owns the managers and runs each frame in order: update,
+    check collisions, add up the score, and decide whether the level is over. The start button, the HUD and the
+    looping music are small pieces layered on top of that.
+  </p>
+  <figure>
+    <img class="medium" src="images/projects/againstTheCurve/architecture.svg" alt="Code structure: main.cpp runs GameMode, which owns the Player and the asteroid, bullet and saucer managers. All game objects inherit from Actor.">
+    <figcaption>How the code fits together.</figcaption>
+  </figure>
+
+  <h3>Player Feel</h3>
+  <p>
+    The ship thrusts in whichever direction it's facing and adds that to its velocity, so it drifts the way
+    the original does. Speed is capped, drag slowly slows it down, and it wraps around the edges of the
+    screen. Firing gives the ship a small push backwards, and a hit sends the ship back to the center for
+    two seconds of invincibility, shown by a colour change. There's also an emergency teleport to a random
+    spot on the screen.
+  </p>
+
+  <h3>Asteroids and Levels</h3>
+  <p>
+    Each asteroid has a random size, and its speed is set from its size, so small ones move much faster than
+    big ones. Shooting or hitting one splits it into two smaller pieces, which disappear once they get small
+    enough. A level ends when the screen is clear of asteroids and saucers, and each level starts with two
+    more asteroids than the last, which is where the endless difficulty curve comes from. Dying resets you to
+    level one.
+  </p>
+
+  <h3>Saucers</h3>
+  <p>
+    Saucers enter from the right edge and fire at the player every few seconds. Their aim has an error that
+    grows with their size, so large saucers are easier to dodge and the small ones are more dangerous. A small saucer
+    arrives every ten seconds to keep the pressure on. Saucers can also be hit by asteroids and shot down.
+  </p>
+  <p>
+    <strong>Problem solved:</strong> player and saucer bullets share one bullet manager, so each bullet carries a
+    tag saying who fired it. The collision checks read the tag, which means saucer shots only hurt the player and
+    your shots only hurt saucers, without needing a second system for each side.
+  </p>
+
+  <h3>What I'd Improve</h3>
+  <p>
+    The ship's movement is tuned per frame instead of per second, so it only feels right at the 60 FPS the
+    game is locked to. I'd scale it by delta time. The collision checks currently live in the bullet and
+    asteroid managers, and I'd move them into one collision system so that adding a new object doesn't mean
+    editing several classes. I'd also keep the score as a whole number and compare it with "at least" instead
+    of "equal to", which is more reliable for things like extra lives.
   </p>
 
 </div>

@@ -1146,6 +1146,15 @@ body > #lab-post { display: none; }
   color: var(--subheading);
 }
 
+/* <h4> = smaller heading inside a section */
+.writing h4 {
+  font-family: 'Oxanium', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--teal);
+  margin-top: 1.8rem;
+}
+
 .writing ul,
 .writing ol { padding-left: 1.25rem; }
 
@@ -1169,6 +1178,10 @@ body > #lab-post { display: none; }
 }
 
 .writing img:hover { border-color: var(--blue); }
+
+/* A picture with data-no-zoom doesn't open the viewer, so it gets no zoom cursor or hover border */
+.writing img[data-no-zoom] { cursor: default; }
+.writing img[data-no-zoom]:hover { border-color: var(--line-soft); }
 
 /* Size: add class="small", "medium" or "large" to an <img> or <video> */
 .writing img.small,  .writing video.small  { width: 280px; }

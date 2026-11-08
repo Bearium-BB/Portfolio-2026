@@ -23,35 +23,48 @@
      ════════════════════════════════════════════════════════════════ -->
 <div id="my-contribution">
 
+  <p><strong>At a glance:</strong> Solo programmer on a team of three. I built the physics-based hand controls and grab system for a QWOP-like game in Unity, in a three-day game jam.</p>
+
   <h3>Overview</h3>
   <ul>
-    <li><strong>Role:</strong> Programmer, on a team of 3 with two artists.</li>
+    <li><strong>Role:</strong> Solo programmer, on a team of 3 with two artists.</li>
     <li><strong>Engine:</strong> Unity.</li>
-    <li><strong>Duration:</strong> three days, for the Winnipeg Game Jam 2026.</li>
+    <li><strong>Event:</strong> Winnipeg Game Jam 2026.</li>
+    <li><strong>Duration:</strong> three-day game jam.</li>
   </ul>
 
-  <h3>What We Built</h3>
+  <h3>Controlling the Goblin</h3>
   <p>
-    Jimbo is a QWOP-like rage game inspired by Bennett Foddy, where you drag a dehydrated goblin to the sink.
-    I was the only programmer, so all of the gameplay code was mine. The part I cared most about was the
-    movement. A game like this lives or dies on whether it's fun to fail at, so I tuned the controls to be
-    easy to understand in the first few seconds while still leaving a high skill ceiling for people who
-    want to master them.
+    The biggest challenge we had to overcome was figuring out how the player would control the goblin.
+    Originally, I applied forces directly based on the player's joystick input. This didn't feel very
+    responsive or reliable, because the character wouldn't always move the way the player intended.
+  </p>
+  <p>
+    We reworked the system to use the controller's rotation to determine the intended movement direction.
+    From that rotation I calculated a target position in front of the player, which the hands move toward.
+    I then took the direction between the goblin's current position and that target and applied a multiplied
+    force toward it. This lets the goblin gradually move in the direction the player is aiming instead of
+    reacting to raw joystick input alone.
+  </p>
+  <p>
+    We also added visual cubes to show where the controllers are aiming. They don't move anything themselves,
+    but they give players feedback so they can understand how their controller positioning turns into
+    the goblin's movement.
   </p>
 
-  <h3>Controlling the Hands</h3>
+  <video class="medium" src="images/projects/jimbo/movement-system.mp4" autoplay loop muted playsinline></video>
+  <p><em>The movement system: controller rotation, directional target calculation, force application, and the visual target cubes.</em></p>
+
+  <h3>Snake Movement</h3>
   <p>
-    Each of Jimbo's hands is controlled on its own: one stick for each hand, plus a button per hand to raise it.
-    Instead of moving the hand directly, the stick picks a target point a short distance from the goblin's
-    center in the direction you're pushing, and the hand is pulled toward that point with a physics force.
-    Holding the raise button lifts the target upward. Because the hand is chasing a point rather than
-    snapping to it, it swings, overshoots and gets dragged around by whatever it's holding, which is where the
-    comedy and the frustration both come from.
+    The new movement system also created an unintended technique we ended up calling "snake movement." By
+    coordinating the movement of their hands, players can slither across the floor. We decided to leave it in
+    because we thought it was funny. If someone discovers it, they discover it.
   </p>
   <p>
-    The pull is clamped to a maximum speed so a hand can't fling itself wildly across the level on its own.
-    Input goes through Unity's Input System, with left and right hands sharing one script that just
-    switches which set of actions it listens to.
+    I've always loved how the developers of Dishonored sometimes leave mechanics like this in for the community
+    to find, as long as they aren't too game-breaking. Looking back, going through two iterations of the hand
+    controls improved the game, and it gave us a movement technique that became part of its personality.
   </p>
 
   <h3>The Grab System</h3>
@@ -77,19 +90,29 @@
 
   <h3>Support Scripts</h3>
   <p>
-    I wrote a handful of small reusable scripts so the level could be put together in the editor without new code
-    each time. A timer, a trigger zone, a collision hook and a restart key each fire a Unity event, which can be
-    connected to things like a reset or a scene change. A scene loader handles level changes and quitting,
-    and the camera follows the goblin from above with a smoothed lerp. Objects also play impact sounds whose
-    volume scales with how hard they hit, with a little random pitch and a short cooldown so a pile of
-    colliding objects doesn't turn into noise.
+    Once the movement was done, the game still needed animations, an objective and everything else around it,
+    so I wrote a handful of small reusable scripts to help it run. A timer, a trigger zone, a collision hook and
+    a restart key each fire a Unity event, which can be connected to things like a reset or a scene change.
+    A scene loader handles level changes and quitting, and the camera follows the goblin from above with a
+    smoothed lerp. I kept them simple and compact so they can be dragged in and out of a scene without any
+    complicated code, and the on-collision events turned out to be especially useful.
+  </p>
+  <p>
+    Objects also play impact sounds whose volume scales with how hard they hit, with a little random pitch and
+    a short cooldown so a pile of colliding objects doesn't turn into noise.
   </p>
 
   <h3>What I'd Improve</h3>
   <p>
-    The grab and pull strengths are numbers written directly into the code, so tuning them meant editing the
-    script each time. I'd move them into the inspector so they can be adjusted while the game is running. I'd
-    also tidy the hand script, since it grew quickly during the jam and still holds some leftover experiments.
+    The grab and pull strengths are hardcoded into the scripts, so adjusting them means editing the code each
+    time. I'd move these values into the Unity Inspector, which would make them adjustable while the game is
+    running and much easier to balance.
+  </p>
+  <p>
+    I'd also refactor the hand movement scripts. They grew quickly during the jam and still contain leftover
+    experiments and unnecessary code. Some systems are too tightly coupled, and that would make future changes
+    harder than they should be. If the project continued, I'd make the code more modular, readable and
+    maintainable, so new mechanics could be added without working around the technical debt from the jam.
   </p>
 
 </div>

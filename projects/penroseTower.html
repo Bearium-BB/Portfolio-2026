@@ -23,37 +23,176 @@
      ════════════════════════════════════════════════════════════════ -->
 <div id="my-contribution">
 
+  <p><strong>At a glance:</strong> Programmer on a team of four. I extended the player movement, designed and built a two-element spell-combining system, and made the tutorial for an endless 2D metroidvania in Unity. I later rebuilt the spell system with MVP and MVVM in a separate test project.</p>
+
   <h3>Overview</h3>
   <ul>
-    <li><strong>Role:</strong> Programmer, on a team of 4 with another programmer and two artists.</li>
-    <li><strong>Engine:</strong> Unity.</li>
+    <li><strong>Role:</strong> Programmer and designer, on a team of 4 with another programmer and two artists.</li>
+    <li><strong>Engine:</strong> Unity (2D).</li>
     <li><strong>Genre:</strong> endless metroidvania about casting spells until death.</li>
     <li><strong>Teammates:</strong> Claudia (programmer and VFX), and artists Emily Peloquin and Jae Togado.</li>
   </ul>
   <p>
-    I worked on three areas: the physics-based movement, the spellcasting system and the animation framework
-    for enemies.
+    I worked on three areas: extending the physics-based player movement, the spell combining system, and the
+    tutorial that teaches the game. The spell combining system is the part I'm proudest of, so it
+    gets the most space below.
   </p>
 
   <h3>Movement</h3>
   <p>
-    I built the physics-based movement system. Penrose Tower is about a constant climb, so traversal needed to
-    feel fast and responsive. I used physics for it rather than a hand-animated controller so that jumps,
-    falls and momentum felt natural.
+    I didn't write the base movement script. Claudia wrote it for the endless runner we started from: it sets the
+    Rigidbody2D velocity from the input, walks faster forward than backwards, makes gravity heavier while falling,
+    and uses a ground check under the feet. I inherited it and built on top of it over the project. It was never
+    rewritten from scratch, so the core feel is hers and the features below are what I added.
+  </p>
+  <p>
+    I moved the script over to Unity's Input System, so the same actions work on keyboard and gamepad. I added the
+    extra jump in the air and the dash, which is a short burst on its own button. I also replaced the original
+    jump, which was a flat push upward, with one where the designers set a jump height and the code works out the
+    launch speed from it and gravity, so changing the gravity doesn't quietly change how high you jump. Finally, I
+    fed the grounded state and velocity to the animator so the artists' animations could play without any extra code
+    from them.
+  </p>
+  <video class="medium" src="images/projects/penroseTower/movement.mp4" autoplay loop muted playsinline></video>
+
+  <h3>The Spell Combining System</h3>
+  <p>
+    You never pick a spell directly. You have two elements, fire and water, and a spell is made by combining two of
+    them. You press one key per element to load it, then press cast. Because the order matters, two elements make
+    four different spells instead of three.
+  </p>
+  <ul>
+    <li><strong>Water, then Fire:</strong> Steam Cloud, a lingering cloud that damages enemies over time (7 second cooldown).</li>
+    <li><strong>Fire, then Water:</strong> Frost Burst, a short burst that stays where you cast it (1 second cooldown).</li>
+    <li><strong>Fire, then Fire:</strong> Flame Torrent, a heavy projectile that hits for 20 damage (5 second cooldown).</li>
+    <li><strong>Water, then Water:</strong> Lightning Bolt, a fast projectile that hits for 10 damage (1 second cooldown).</li>
+  </ul>
+
+  <h4>The two slots</h4>
+  <p>
+    The player has two slots that hold the loaded elements. Each press of an element key writes into the next
+    slot and then moves a pointer to the other one, so the pair is always the last two elements you pressed.
+    The pointer matters because slot order is what decides the spell: to turn Water-Fire into Fire-Water you
+    press Fire (which fills the first slot) and then Water (which fills the second). The UI shows both loaded
+    icons with an arrow over the slot that will be replaced next, so the player can always see what a key press
+    will do before they press it.
+  </p>
+<pre><code>public void replaceElement(SpellElement spellElement)
+{
+    elements[replaceIndex] = spellElement;
+    replaceIndex++;
+    if (replaceIndex > elements.Count - 1) replaceIndex = 0;
+}</code></pre>
+
+  <h4>From elements to a spell</h4>
+  <p>
+    When the player presses cast, the two slots are compared against the four recipes and the matching spell is
+    run. The combos are only a lookup, so the interesting part is what a spell is. Every ability in the game,
+    including the elements themselves, is a ScriptableObject (an asset you edit in the Unity inspector) built
+    from one base class. That base class holds the name, icon and cooldown, and counts the cooldown down every
+    frame. Each spell then only has to say what it does when it's called.
   </p>
 
-  <h3>Spellcasting</h3>
+  <h4>Spells that ask for the data they need</h4>
   <p>
-    The spellcasting system is where most of my time went. You combine multiple elements, and each
-    combination produces its own effect. I set the system up so that adding a new spell is mostly a matter
-    of adding data, which let the team iterate on content quickly instead of writing new code for every idea.
+    A ScriptableObject can't hold references to things in the scene, like the player's Rigidbody, so each spell
+    declares the kind of data it needs, such as a Transform or a Rigidbody2D. A collector component on the player
+    holds one small data component per kind and hands the right one to the spell when it's cast. The spell code
+    never searches the scene and never needs a reference to the player. A new spell that needs something new
+    only needs a new data component, and nothing else changes.
   </p>
 
-  <h3>Enemy Animation</h3>
+  <h4>Adding a spell is mostly data</h4>
   <p>
-    I also built an event-driven animation framework. Animations are triggered by events instead of being
-    hard-wired to each enemy, so the same behavior can be reused across different enemy types with very
-    little extra work.
+    The final four spells are all the same "spawn projectile" asset with different numbers: which prefab to spawn,
+    where to spawn it relative to the player, and how long the cooldown is. The prefab itself is built out of
+    small reusable pieces: one pushes the projectile forward, one destroys it on a hit or after a timer, and one
+    deals damage. So designers and artists could make a new spell, or retune one, without asking me for code.
+    Earlier versions were more code-heavy, with spells like a steam teleport and a water jump, and moving to
+    the spawn-projectile asset is what made tuning fast.
+  </p>
+  <video class="medium" src="images/projects/penroseTower/spell-casting.mp4" autoplay loop muted playsinline></video>
+
+  <p>
+    <strong>Problem solved:</strong> cooldowns live on the ScriptableObject assets, and in the editor an asset keeps
+    its values between play sessions. A spell that was on cooldown when I stopped the game would still be on
+    cooldown the next time I pressed play. I reset the timer when the asset is enabled and disabled, so every run
+    starts with every spell ready.
+  </p>
+
+  <h4>What was awkward about it</h4>
+  <p>
+    The first version worked but it was hard to extend. The knowledge of "which two elements make which spell"
+    was repeated in three places: the script holding the slots, the ability manager that fires the spell, and the
+    UI that shows its icon. Each one had its own copy of the same four-way if/else, and the spells were found by
+    their position in a list (steam cloud is slot 0, frost burst is slot 1, and so on). Adding a fifth spell, or
+    even putting the list in a different order, meant fixing all three by hand.
+  </p>
+
+  <h3>Rewriting It With Design Patterns</h3>
+  <p>
+    Afterwards I rebuilt the same system in a separate test project, using MVP, MVVM and a small Object Resolver
+    I wrote for dependency injection. It's an architecture test, not part of the Penrose Tower build, and the
+    <a href="lab/designPatterns.html">full write-up is in the Laboratory</a>. Here is what it changed for the
+    combining system.
+  </p>
+  <p>
+    <strong>One model that owns the rules.</strong> The two slots, the pointer and the recipes now live in one plain
+    C# class with no Unity code in it. The four recipes are four fields filled in once, so asking for the outcome
+    returns the spell asset directly. There's no list position to remember and no copied if/else anywhere else.
+    The elements are also just "element one" and "element two", so the system doesn't care that they're fire and
+    water.
+  </p>
+  <p>
+    <strong>MVP for the flow.</strong> The input view only raises events when a key is pressed. A presenter listens,
+    tells the model to load the element or work out the outcome, and then tells the view what happened. Because
+    the presenter only knows the view through an interface, moving the controls from the keyboard to the gamepad
+    only changes the view.
+  </p>
+  <p>
+    <strong>MVVM for the screen.</strong> A ViewModel watches the model's pointer, which is a small observable value
+    that fires only when it changes, and turns the slots into the two element icons and the result spell. The UI
+    subscribes once and updates itself. The old UI script had to be handed a reference to the ability manager and
+    the slot script and ask them for the answer; the new one has no idea either exists.
+  </p>
+  <p>
+    <strong>The Object Resolver ties it together.</strong> It hands the UI an interface for setting text, filled in
+    automatically by a field marked <code>[Inject]</code>, so nothing needs to be dragged into the inspector or
+    reached through a Singleton. A single installer builds the model, presenter and ViewModel, which means
+    there's one place to look when something isn't connected.
+  </p>
+  <p>
+    The result is easier to work with: the rules are in one place, the display and the input can be swapped
+    without touching the rules, and adding a spell means filling in a slot instead of editing three scripts.
+    The rewrite is only a test, though: the input view just logs the cast to the console, so it was never
+    connected to real projectiles. I also don't think a project this small needs that much structure, but I'd
+    reach for it on a bigger game.
+  </p>
+  <figure>
+    <img class="medium" src="images/projects/penroseTower/spell-combining.svg" alt="Spell combining diagram: element presses fill two slots, and the pair of slots picks one of four spells">
+    <figcaption>How two element presses become one of four spells.</figcaption>
+  </figure>
+
+  <h3>The Tutorial</h3>
+  <p>
+    I built the tutorial, a hub the game starts in that teaches the rules by making you use them. Signs next to
+    each obstacle explain one idea at a time: how to move, how to jump, how a double jump and a dash can cross a
+    gap, and finally how to combine elements. One gap says to take a leap of faith, and the next says to try
+    again using a double jump and a dash, so a player who gets it wrong learns the fix from the level itself. A
+    recipe board shows each combination as two element icons equal to the spell icon, so the player doesn't need
+    to memorise anything before they cast their first spell.
+  </p>
+  <figure>
+    <img class="medium" data-no-zoom src="https://img.itch.zone/aW1nLzI1MDk1MjY5LnBuZw==/original/7WPErG.png" alt="The tutorial hub, with a controls panel for the element and cast buttons and a Combinations board">
+    <figcaption>The hub: a controls panel for keyboard and gamepad, and the Combinations board.</figcaption>
+  </figure>
+
+  <h3>What I'd Improve</h3>
+  <p>
+    The ability manager still has a lot of repeated branches, since the rewrite never made it back into the
+    game. I'd bring the combining model into Penrose Tower and replace the list positions with named recipes. I'd
+    also move the spell numbers somewhere designers can see them all at once, and add a couple more elements,
+    since the new model wouldn't need to change to support them.
   </p>
 
 </div>

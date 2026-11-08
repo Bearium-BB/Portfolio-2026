@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="780" viewBox="0 0 1280 780" font-family="Oxanium, Segoe UI, sans-serif" role="img" aria-label="Code structure of Against The Curve: main.cpp runs GameMode, which owns the Player and the asteroid, bullet and saucer managers. All game objects inherit from Actor.">
+  <rect width="1280" height="780" fill="#050508"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#4779A5"/>
+    </marker>
+    <marker id="t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#63D6D0"/>
+    </marker>
+  </defs>
+
+  <text x="640" y="54" text-anchor="middle" fill="#8CCBFF" font-size="40" font-weight="700">Code Structure</text>
+  <text x="640" y="88" text-anchor="middle" fill="#71849B" font-size="20">Against The Curve · C++ with Raylib</text>
+
+  <!-- main.cpp -->
+  <rect x="470" y="115" width="340" height="76" rx="10" fill="#172B40" stroke="#4779A5" stroke-width="2"/>
+  <text x="640" y="150" text-anchor="middle" fill="#FFFFFF" font-size="26" font-weight="700">main.cpp</text>
+  <text x="640" y="176" text-anchor="middle" fill="#A9D5FF" font-size="18">window, game loop, Start button</text>
+
+  <line x1="640" y1="193" x2="640" y2="248" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+
+  <!-- GameMode -->
+  <rect x="400" y="250" width="480" height="96" rx="10" fill="#172B40" stroke="#63D6D0" stroke-width="2"/>
+  <text x="640" y="290" text-anchor="middle" fill="#63D6D0" font-size="28" font-weight="700">GameMode</text>
+  <text x="640" y="322" text-anchor="middle" fill="#A9D5FF" font-size="18">owns everything, runs each frame, score and levels</text>
+
+  <!-- Per-frame order -->
+  <rect x="930" y="236" width="290" height="124" rx="10" fill="#101020" stroke="#4779A5" stroke-width="2"/>
+  <text x="950" y="266" fill="#8CCBFF" font-size="20" font-weight="700">Each frame</text>
+  <text x="950" y="294" fill="#C5D0DF" font-size="18">1. update every object</text>
+  <text x="950" y="318" fill="#C5D0DF" font-size="18">2. check collisions, add score</text>
+  <text x="950" y="342" fill="#C5D0DF" font-size="18">3. level clear? start the next</text>
+
+  <!-- Legend -->
+  <line x1="60" y1="262" x2="120" y2="262" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="135" y="268" fill="#C5D0DF" font-size="18">owns / contains</text>
+  <line x1="60" y1="300" x2="120" y2="300" stroke="#63D6D0" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#t)"/>
+  <text x="135" y="306" fill="#C5D0DF" font-size="18">inherits from</text>
+
+  <!-- GameMode to children -->
+  <line x1="560" y1="348" x2="190" y2="418" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="610" y1="348" x2="490" y2="418" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="670" y1="348" x2="790" y2="418" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="720" y1="348" x2="1090" y2="418" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+
+  <!-- Player + managers -->
+  <rect x="60" y="420" width="260" height="96" rx="10" fill="#172B40" stroke="#4779A5" stroke-width="2"/>
+  <text x="190" y="458" text-anchor="middle" fill="#FFFFFF" font-size="26" font-weight="700">Player</text>
+  <text x="190" y="488" text-anchor="middle" fill="#A9D5FF" font-size="18">ship controls, health</text>
+
+  <rect x="360" y="420" width="260" height="96" rx="10" fill="#172B40" stroke="#4779A5" stroke-width="2"/>
+  <text x="490" y="458" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="700">AsteroidManager</text>
+  <text x="490" y="488" text-anchor="middle" fill="#A9D5FF" font-size="18">list and splitting</text>
+
+  <rect x="660" y="420" width="260" height="96" rx="10" fill="#172B40" stroke="#4779A5" stroke-width="2"/>
+  <text x="790" y="458" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="700">BulletManager</text>
+  <text x="790" y="488" text-anchor="middle" fill="#A9D5FF" font-size="18">bullets and most collisions</text>
+
+  <rect x="960" y="420" width="260" height="96" rx="10" fill="#172B40" stroke="#4779A5" stroke-width="2"/>
+  <text x="1090" y="458" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="700">SaucerManager</text>
+  <text x="1090" y="488" text-anchor="middle" fill="#A9D5FF" font-size="18">saucers vs asteroids</text>
+
+  <!-- Managers to the objects they hold -->
+  <line x1="490" y1="518" x2="490" y2="578" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="790" y1="518" x2="790" y2="578" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="1090" y1="518" x2="1090" y2="578" stroke="#4779A5" stroke-width="2.5" marker-end="url(#a)"/>
+
+  <rect x="360" y="580" width="260" height="76" rx="10" fill="#101020" stroke="#4779A5" stroke-width="2"/>
+  <text x="490" y="613" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="700">Asteroid</text>
+  <text x="490" y="640" text-anchor="middle" fill="#A9D5FF" font-size="18">size sets its speed</text>
+
+  <rect x="660" y="580" width="260" height="76" rx="10" fill="#101020" stroke="#4779A5" stroke-width="2"/>
+  <text x="790" y="613" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="700">Bullet</text>
+  <text x="790" y="640" text-anchor="middle" fill="#A9D5FF" font-size="18">tagged player or saucer</text>
+
+  <rect x="960" y="580" width="260" height="76" rx="10" fill="#101020" stroke="#4779A5" stroke-width="2"/>
+  <text x="1090" y="613" text-anchor="middle" fill="#FFFFFF" font-size="24" font-weight="700">Saucer</text>
+  <text x="1090" y="640" text-anchor="middle" fill="#A9D5FF" font-size="18">aims at the player</text>
+
+  <!-- Inheritance rail -->
+  <path d="M190 518 V690" fill="none" stroke="#63D6D0" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <line x1="490" y1="658" x2="490" y2="690" stroke="#63D6D0" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <line x1="790" y1="658" x2="790" y2="690" stroke="#63D6D0" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <line x1="1090" y1="658" x2="1090" y2="690" stroke="#63D6D0" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <line x1="190" y1="690" x2="1090" y2="690" stroke="#63D6D0" stroke-width="2.5" stroke-dasharray="7 6"/>
+  <line x1="640" y1="690" x2="640" y2="712" stroke="#63D6D0" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#t)"/>
+
+  <!-- Actor -->
+  <rect x="440" y="714" width="400" height="56" rx="10" fill="#172B40" stroke="#63D6D0" stroke-width="2"/>
+  <text x="640" y="742" text-anchor="middle" fill="#63D6D0" font-size="24" font-weight="700">Actor</text>
+  <text x="640" y="762" text-anchor="middle" fill="#A9D5FF" font-size="16">base class: position and velocity</text>
+</svg>

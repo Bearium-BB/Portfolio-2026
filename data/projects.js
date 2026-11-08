@@ -40,45 +40,11 @@
 const PROJECTS = [
 
   {
-    id:         'jimbo',
-    title:      'Jimbo, Remember to Hydrate',
-    status:     'Prototype',
-    onHomePage: true,
-    bigCard:    true,
-    image:      'https://img.itch.zone/aW1nLzI2MzQ0Mjk4LnBuZw==/original/J97fvW.png',
-    cardText:   "QWOP-like rage game inspired by Bennett Foddy. You're a goblin with useless legs, dragging yourself to the sink to rehydrate. Made in three days.",
-    tags:       ['Puzzle', 'Comedy', 'Adventure', 'Jam Game', 'Unity'],
-
-    eyebrow:    'Winnipeg Game Jam 2026',
-    badges:     ['Winnipeg Game Jam 2026', 'Windows'],
-    cover:      'https://img.itch.zone/aW1nLzI1NzUyNjE3LnBuZw==/original/5bAABb.png',
-    about: [
-      "You're a goblin who just realized his legs don't work, and you're dehydrated, but you still have to make it to the sink to rehydrate. Let's hope you don't find out what happens if you don't make it to the sink.",
-      "This game was made during the Winnipeg Game Jam 2026. It was created in three days by two artists and one programmer, and it has not been polished since the game jam. However, we still hope you enjoy our game.",
-    ],
-    media: [
-      'https://img.itch.zone/aW1nLzI2MzQ0Mjk4LnBuZw==/original/J97fvW.png',
-      'https://img.itch.zone/aW1nLzI1NzUyNjE3LnBuZw==/original/5bAABb.png',
-      'https://www.youtube.com/watch?v=4KQd_wjdBqg',
-    ],
-    team: [
-      { name: 'Brett Bowley',  role: 'Programmer' },
-      { name: 'Justin Little', role: 'Artist' },
-      { name: 'Tammy Hoang',   role: 'Artist' },
-    ],
-    engine:     'Unity',
-    platforms:  'Windows',
-    year:       '2026',
-    size:       '49 MB',
-    itch:       'https://bearium-ii.itch.io/jimbo-remember-to-hydrate',
-    github:     'https://github.com/Bearium-BB/WINNIPEG-GAME-JAM-2026',
-  },
-
-  {
     id:         'penroseTower',
     title:      'Penrose Tower',
     status:     'Prototype',
     onHomePage: true,
+    bigCard:    true,
     image:      'https://img.itch.zone/aW1nLzI1MDk1MTY5LnBuZw==/original/PU8AO3.png',
     cardText:   'Endless metroidvania about casting spells until death. Physics-based movement and a multi-element spell system with combinable effects.',
     tags:       ['Platformer', 'Adventure', '2D', 'Pixel Art', 'Singleplayer', 'Endless'],
@@ -107,47 +73,6 @@ const PROJECTS = [
     size:       '46 MB',
     itch:       'https://bearium-ii.itch.io/penrose-tower',
     github:     'https://github.com/Claudia200113/GameStudioA3',
-  },
-
-  {
-    id:         'vickysVexingVocation',
-    title:      "Vicky's Vexing Vocation",
-    status:     'Released',
-    onHomePage: true,
-    image:      'https://img.itch.zone/aW1nLzI2NzQ4NzM1LnBuZw==/original/I0aV2B.png',
-    cardText:   'Twin-stick roguelike inspired by Hades and The Binding of Isaac. I built the Gambling Gun, enemy attacks, UI logic and VFX.',
-    tags:       ['Roguelike', 'Twin-Stick Shooter', 'Action', 'Shooter', '3D', 'Dinosaurs', 'Ghosts', 'Top-Down'],
-
-    eyebrow:    'Twin-Stick Roguelike',
-    badges:     ['Windows', 'Twin-Stick Shooter', 'Gamepad Required'],
-    cover:      'https://img.itch.zone/aW1nLzI2NzQ4NzMxLnBuZw==/original/dqRz2p.png',
-    about: [
-      "Vicky's Vexing Vocation is a twin-stick-shooter roguelike inspired by Hades and The Binding of Isaac.",
-      "You play as Vicky, a velociraptor down on her luck. A mysterious letter arrives offering an ominous job — with no other options, you take it. Your task: clean up an old warehouse infested by ghosts, ghouls, and other indescribable horrors. Defeat a horde of enemies, collect your reward, and push deeper. How far can you go?",
-      "Features 3 unique guns each with their own abilities, a cartoon-spooky aesthetic, and randomized challenges for different runs. Note: currently requires a gamepad to play.",
-    ],
-    media: [
-      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcyMi5wbmc=/original/1FCSuR.png',
-      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcyMC5wbmc=/original/AaY7S2.png',
-      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcyMS5wbmc=/original/ZLmnxX.png',
-      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcxOC5wbmc=/original/5uVBnn.png',
-      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcxOS5wbmc=/original/2eZuGo.png',
-      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcyMy5wbmc=/original/8qyZ5j.png',
-      'https://www.youtube.com/watch?v=AI8Zo09Fr0U',
-    ],
-    team: [
-      { name: 'Brett Bowley',      role: 'Programmer & VFX Padawan' },
-      { name: 'Ian Roller',        role: 'Level Designer & Programmer' },
-      { name: 'Hilandrei',         role: 'Programmer' },
-      { name: 'Aulden Szczepanik', role: 'Artist' },
-      { name: 'Kaylee Elson',      role: 'Character Designer & Artist' },
-      { name: 'Claudia',           role: 'VFX Jedi Master' },
-    ],
-    engine:     'Unreal Engine',
-    platforms:  'Windows',
-    year:       '2026',
-    size:       '466 MB',
-    itch:       'https://iridium4.itch.io/vickys-vexing-vocation',
   },
 
   {
@@ -182,13 +107,88 @@ const PROJECTS = [
   },
 
   {
+    id:         'vickysVexingVocation',
+    title:      "Vicky's Vexing Vocation",
+    status:     'Released',
+    onHomePage: true,
+    image:      'https://img.itch.zone/aW1nLzI2NzQ4NzM1LnBuZw==/original/I0aV2B.png',
+    cardText:   'Twin-stick roguelike inspired by Hades and The Binding of Isaac. I built the Gambling Gun, enemy attacks, UI logic and VFX.',
+    tags:       ['Roguelike', 'Twin-Stick Shooter', 'Action', 'Shooter', '3D', 'Dinosaurs', 'Ghosts', 'Top-Down'],
+
+    eyebrow:    'Twin-Stick Roguelike',
+    badges:     ['Windows', 'Twin-Stick Shooter', 'Gamepad Required'],
+    cover:      'https://img.itch.zone/aW1nLzI2NzQ4NzMxLnBuZw==/original/dqRz2p.png',
+    about: [
+      "Vicky's Vexing Vocation is a twin-stick-shooter roguelike inspired by Hades and The Binding of Isaac.",
+      "You play as Vicky, a velociraptor down on her luck. A mysterious letter arrives offering an ominous job — with no other options, you take it. Your task: clean up an old warehouse infested by ghosts, ghouls, and other indescribable horrors. Defeat a horde of enemies, collect your reward, and push deeper. How far can you go?",
+      "Features 3 unique guns each with their own abilities, a cartoon-spooky aesthetic, and randomized challenges for different runs. Note: currently requires a gamepad to play.",
+    ],
+    media: [
+      'https://www.youtube.com/watch?v=AI8Zo09Fr0U',
+      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcyMi5wbmc=/original/1FCSuR.png',
+      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcyMC5wbmc=/original/AaY7S2.png',
+      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcyMS5wbmc=/original/ZLmnxX.png',
+      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcxOC5wbmc=/original/5uVBnn.png',
+      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcxOS5wbmc=/original/2eZuGo.png',
+      'https://img.itch.zone/aW1hZ2UvNDQ4NTMwMi8yNjg3NTcyMy5wbmc=/original/8qyZ5j.png',
+    ],
+    team: [
+      { name: 'Brett Bowley',      role: 'Programmer & VFX Padawan' },
+      { name: 'Ian Roller',        role: 'Level Designer & Programmer' },
+      { name: 'Hilandrei',         role: 'Programmer' },
+      { name: 'Aulden Szczepanik', role: 'Artist' },
+      { name: 'Kaylee Elson',      role: 'Character Designer & Artist' },
+      { name: 'Claudia',           role: 'VFX Jedi Master' },
+    ],
+    engine:     'Unreal Engine',
+    platforms:  'Windows',
+    year:       '2026',
+    size:       '466 MB',
+    itch:       'https://iridium4.itch.io/vickys-vexing-vocation',
+  },
+
+  {
+    id:         'jimbo',
+    title:      'Jimbo, Remember to Hydrate',
+    status:     'Prototype',
+    onHomePage: true,
+    image:      'https://img.itch.zone/aW1nLzI2MzQ0Mjk4LnBuZw==/original/J97fvW.png',
+    cardText:   "QWOP-like rage game inspired by Bennett Foddy. You're a goblin with useless legs, dragging yourself to the sink to rehydrate. Made in three days.",
+    tags:       ['Puzzle', 'Comedy', 'Adventure', 'Jam Game', 'Unity'],
+
+    eyebrow:    'Winnipeg Game Jam 2026',
+    badges:     ['Winnipeg Game Jam 2026', 'Windows'],
+    cover:      'https://img.itch.zone/aW1nLzI1NzUyNjE3LnBuZw==/original/5bAABb.png',
+    about: [
+      "You're a goblin who just realized his legs don't work, and you're dehydrated, but you still have to make it to the sink to rehydrate. Let's hope you don't find out what happens if you don't make it to the sink.",
+      "This game was made during the Winnipeg Game Jam 2026. It was created in three days by two artists and one programmer, and it has not been polished since the game jam. However, we still hope you enjoy our game.",
+    ],
+    media: [
+      'https://www.youtube.com/watch?v=4KQd_wjdBqg',
+      'https://img.itch.zone/aW1nLzI2MzQ0Mjk4LnBuZw==/original/J97fvW.png',
+      'https://img.itch.zone/aW1nLzI1NzUyNjE3LnBuZw==/original/5bAABb.png',
+    ],
+    team: [
+      { name: 'Brett Bowley',  role: 'Programmer' },
+      { name: 'Justin Little', role: 'Artist' },
+      { name: 'Tammy Hoang',   role: 'Artist' },
+    ],
+    engine:     'Unity',
+    platforms:  'Windows',
+    year:       '2026',
+    size:       '49 MB',
+    itch:       'https://bearium-ii.itch.io/jimbo-remember-to-hydrate',
+    github:     'https://github.com/Bearium-BB/WINNIPEG-GAME-JAM-2026',
+  },
+
+  {
     id:         'againstTheCurve',
     title:      'Against The Curve',
     status:     'Released',
     onHomePage: false,
     image:      'https://img.itch.zone/aW1nLzI2MjAxNTgwLnBuZw==/original/y6MPVC.png',
     cardText:   'A modern take on the classic asteroid-style arcade game. Survive endless waves of asteroids and saucers that shoot back.',
-    tags:       ['Arcade', 'Asteroids', 'Shooter', 'Raylib', 'Singleplayer', 'Endless'],
+    tags:       ['Arcade', 'Asteroids', 'Shooter', 'C++', 'Raylib', 'Singleplayer', 'Endless'],
 
     eyebrow:    'Arcade Asteroid Shooter',
     badges:     ['Windows', 'Arcade'],
@@ -205,11 +205,12 @@ const PROJECTS = [
     team: [
       { name: 'Brett Bowley', role: 'Solo Developer' },
     ],
-    engine:     'Raylib',
+    engine:     'C++ / Raylib',
     platforms:  'Windows',
     year:       '2026',
     size:       '5.5 MB',
     itch:       'https://bearium-ii.itch.io/against-the-curve',
+    github:     'https://github.com/Bearium-BB/AsteroidsGame',
   },
 
 ];

@@ -459,11 +459,12 @@ function setupLightbox() {
 
   document.addEventListener('click', e => {
     // Media thumbnails step through that project's media; writing pictures through that post's pictures
-    const clicked = e.target.closest('.proj-media-thumb') || e.target.closest('.writing img');
+    // A picture with the attribute data-no-zoom stays where it is and doesn't open the viewer
+    const clicked = e.target.closest('.proj-media-thumb') || e.target.closest('.writing img:not([data-no-zoom])');
     if (!clicked) return;
     const group = clicked.matches('.proj-media-thumb')
       ? [...clicked.parentElement.querySelectorAll('.proj-media-thumb')]
-      : [...clicked.closest('.writing').querySelectorAll('img')];
+      : [...clicked.closest('.writing').querySelectorAll('img:not([data-no-zoom])')];
     openLightbox(group.map(lightboxItemHTML), group.indexOf(clicked));
   });
 }
