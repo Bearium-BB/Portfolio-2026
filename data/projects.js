@@ -213,4 +213,32 @@ const PROJECTS = [
     github:     'https://github.com/Bearium-BB/AsteroidsGame',
   },
 
+  {
+    id:         'robbeary',
+    title:      'Robbeary',
+    status:     'Prototype',
+    onHomePage: false,
+    image:      'https://img.itch.zone/aW1nLzMyMDk1ODcwLnBuZw==/original/TqNwls.png',
+    cardText:   'A stealth heist in a robot-guarded museum. Sneak past patrols and cameras, steal the bear statue, and escape before the world ends.',
+    tags:       ['Stealth', 'Action', 'Heist', 'Singleplayer'],
+
+    eyebrow:    'Stealth Heist',
+    badges:     ['Windows', 'Stealth'],
+    about: [
+      "The world is ending. The bear is waiting. The robots are... mostly paying attention.",
+      "A heavily guarded museum holds a plain-looking bear statue, and nobody will say why it needs so much security. Robot guards patrol day and night and cameras cover every corner. Sneak past the patrols, dodge the cameras, grab the bear and escape before something decides it's tired of waiting.",
+    ],
+    team: [
+      { name: 'Anne',         role: 'Team Member' },
+      { name: 'Brett Bowley', role: 'Team Member' },
+      { name: 'Claudia',      role: 'Team Member' },
+      { name: 'Jangho',       role: 'Team Member' },
+      { name: 'Jae',          role: 'Team Member' },
+    ],
+    platforms:  'Windows',
+    year:       '2026',
+    size:       '495 MB',
+    itch:       'https://bearium-ii.itch.io/robbeary',
+  },
+
 ];
