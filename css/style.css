@@ -1179,6 +1179,41 @@ body > #lab-post { display: none; }
 
 .writing img:hover { border-color: var(--blue); }
 
+/* "Under construction" notice: <div class="construction-notice"><strong>Title</strong><p>Text</p></div>
+   Hazard stripes on the left edge, amber text. Used on pages that aren't finished yet. */
+.writing .construction-notice {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.25rem 1rem 1.75rem;
+  background: var(--bg3);
+  border: 1px solid #F5B83D;
+  border-left: 0;
+  border-radius: 6px;
+  position: relative;
+}
+
+.writing .construction-notice::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 0;
+  width: 0.7rem;
+  border-radius: 6px 0 0 6px;
+  background: repeating-linear-gradient(-45deg, #F5B83D 0 8px, #050508 8px 16px);
+}
+
+.writing .construction-notice strong {
+  color: #F5B83D;
+  font-family: 'Oxanium', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.writing .construction-notice p { margin: 0; }
+
 /* A picture with data-no-zoom doesn't open the viewer, so it gets no zoom cursor or hover border */
 .writing img[data-no-zoom] { cursor: default; }
 .writing img[data-no-zoom]:hover { border-color: var(--line-soft); }
